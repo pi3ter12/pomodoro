@@ -44,6 +44,10 @@ export class CardComponent implements OnInit, OnDestroy {
     this.timerService.changeStep(isNext);
   }
 
+  handleRoundChange(value: number): void {
+    this.timerService.changeRound(value);
+  }
+
   private handleStateUpdate(state: TimerState): void {
     this.selectedOption = state.currentOption;
     this.seconds = state.time;

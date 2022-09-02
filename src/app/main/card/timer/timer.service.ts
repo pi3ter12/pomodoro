@@ -11,7 +11,7 @@ export class TimerService {
   private onStateChangeSubject: Subject<TimerState> = new Subject<TimerState>();
   public onStateChange = this.onStateChangeSubject.asObservable();
 
-  private steps: Round[] = [];
+  private steps: Step[] = [];
 
   constructor() {
     this.state = {
@@ -74,6 +74,13 @@ export class TimerService {
     this.changeOption(next)
   }
 
+  public changeRound(round: number): void {
+    const step = this.steps.filter(item => item.type === 'work')
+      .sort((a, b) => a.index > b.index ? 1 : -1)[round-1];
+    this.stopSubscription();
+    this.setStep(step);
+  }
+
   private changeOption(next: boolean = true): void {
     const prevOrNextStep = (next) ? this.state.currentStep + 1 : this.state.currentStep - 1;
     let step = this.steps.find(item => item.index === prevOrNextStep);
@@ -82,8 +89,12 @@ export class TimerService {
       newStep = (next) ? 0 : this.steps.length - 1;
       step = this.steps.find(item => item.index === newStep);
     }
+    this.setStep(step);
+  }
+
+  private setStep(step: Step | undefined): void {
     if (step != null) {
-      this.state.currentStep = newStep;
+      this.state.currentStep = step.index;
       this.setSelectedOption(step.type, false);
       this.startSubscription();
     }
@@ -161,7 +172,7 @@ export interface TimerState {
 
 export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';
 
-export interface Round {
+export interface Step {
   index: number;
   type: CurrentOption;
 }

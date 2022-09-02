@@ -1,0 +1,10 @@
+@import "variable";
+@import "colors";
+
+@mixin default-font{
+  font-family: 'ArialRounded', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: $font-size-normal;
+  color: $textColor;
+}

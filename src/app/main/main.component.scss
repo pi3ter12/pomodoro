@@ -1,0 +1,18 @@
+@import "../shared/styles/colors";
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  background-color: $background;
+  height: 100vh;
+
+  .card-container {
+    flex-grow: 1;
+    padding: 1rem;
+
+    & > div {
+      max-width: 35rem;
+      margin: 1.5rem auto auto;
+    }
+  }
+}

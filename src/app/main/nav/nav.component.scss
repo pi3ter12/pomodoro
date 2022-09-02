@@ -1,0 +1,33 @@
+@import "../../shared/styles/colors";
+@import "../../shared/styles/fonts";
+
+.nav-container {
+  @include default-font;
+  background-color: $background;
+  display: flex;
+  min-height: 4rem;
+  line-height: 4rem;
+  position: relative;
+
+  border-bottom: 1px solid $borderColor;
+
+  .title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding-left: 2rem;
+  }
+
+  .subtitle {
+    position: relative;
+
+    span {
+      width: max-content;
+      position: absolute;
+      bottom: 1rem;
+      padding-left: 1rem;
+      font-size: .8rem;
+      line-height: .8rem;
+      max-height: 1rem;
+    }
+  }
+}

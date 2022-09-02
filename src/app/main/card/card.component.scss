@@ -1,0 +1,8 @@
+@import "../../shared/styles/colors";
+@import "../../shared/styles/fonts";
+
+.card-container {
+  max-height: 600px;
+  @include default-font;
+  background-color: $backgroundElementMask;
+}

@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 export class CardComponent implements OnInit, OnDestroy {
   selectedOption: CurrentOption = 'work';
   seconds: number = 0;
+  step: number = 0;
   working: boolean = false;
   private stateChangeSubscription: Subscription | undefined;
 
@@ -40,5 +41,6 @@ export class CardComponent implements OnInit, OnDestroy {
     this.selectedOption = state.currentOption;
     this.seconds = state.time;
     this.working = state.working;
+    this.step = state.currentStep;
   }
 }

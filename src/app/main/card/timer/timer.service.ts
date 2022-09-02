@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {interval, Subject, Subscription, takeUntil, tap} from "rxjs";
+import {Injectable} from '@angular/core';
+import {interval, Subject, Subscription, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,22 @@ export class TimerService {
   private onStateChangeSubject: Subject<TimerState> = new Subject<TimerState>();
   public onStateChange = this.onStateChangeSubject.asObservable();
 
+  private steps: Round[] = [];
+
   constructor() {
     this.state = {
       conf: {
-        work: 25,//*60,
-        longBreak: 15,//*60,
-        shortBreak: 5,//*60
+        work: 5,//25*60,
+        longBreak: 3,//15*60,
+        shortBreak: 2,//5*60
       },
-      time: 25,//*60,
+      time: 5,//25*60,
       currentOption: "work",
-      working: false
+      working: false,
+      rounds: 4,
+      currentStep: 0
     }
+    this.generateSteps();
   }
 
   public getSelectedOption(): CurrentOption {
@@ -39,6 +44,16 @@ export class TimerService {
     this.notify();
   }
 
+  private generateSteps(): void {
+    this.steps = [];
+    let index = 0;
+    for (let i = 0; i < this.state.rounds; i++) {
+      this.steps.push({index: index, type: "work"})
+      this.steps.push({index: index + 1, type: (i === this.state.rounds - 1) ? 'longBreak' : 'shortBreak'})
+      index += 2;
+    }
+  }
+
   private startSubscription(): void {
     this.intervalSubscription = interval(1000).pipe(
       tap(() => {
@@ -54,9 +69,17 @@ export class TimerService {
   }
 
   private nextOption(): void {
-    // todo
-    this.setSelectedOption('shortBreak');
-    this.startSubscription();
+    let step = this.steps.find(item => item.index === this.state.currentStep + 1);
+    let newStep = this.state.currentStep + 1;
+    if (step == null) {
+      step = this.steps.find(item => item.index === 0);
+      newStep = 0;
+    }
+    if (step != null) {
+      this.state.currentStep = newStep;
+      this.setSelectedOption(step.type);
+      this.startSubscription();
+    }
   }
 
   private stopSubscription(): void {
@@ -80,7 +103,7 @@ export class TimerService {
   }
 
   private getTimeByOption(option: CurrentOption): number {
-    const prepareResultList: {option: CurrentOption, time: number}[] = [
+    const prepareResultList: { option: CurrentOption, time: number }[] = [
       {option: "work", time: this.state.conf.work},
       {option: "longBreak", time: this.state.conf.longBreak},
       {option: "shortBreak", time: this.state.conf.shortBreak},
@@ -99,5 +122,13 @@ export interface TimerState {
   currentOption: CurrentOption;
   time: number;
   working: boolean;
+  rounds: number
+  currentStep: number;
 }
-export type CurrentOption =  'work' | 'longBreak' | 'shortBreak';
+
+export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';
+
+export interface Round {
+  index: number;
+  type: CurrentOption;
+}

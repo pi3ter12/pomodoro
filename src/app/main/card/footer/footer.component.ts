@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {CurrentOption} from "../timer/timer.service";
 
 @Component({
@@ -6,6 +6,13 @@ import {CurrentOption} from "../timer/timer.service";
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent {
+export class FooterComponent implements OnChanges {
   @Input() currentOption: CurrentOption = "work";
+  @Input() step: number = 0;
+
+  round: number = 1;
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.round = Math.floor((this.step) / 2) + 1;
+  }
 }

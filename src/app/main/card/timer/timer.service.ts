@@ -25,13 +25,24 @@ export class TimerService {
     return this.state.currentOption;
   }
 
-  public setSelectedOption(state: CurrentOption): void {
-    this.state.currentOption = state;
+  public setSelectedOption(option: CurrentOption): void {
+    this.state.currentOption = option;
+    this.state.time = this.getTimeByOption(option);
     this.onStateChangeSubject.next(this.state);
   }
 
   public getState(): TimerState {
     return this.state;
+  }
+
+  private getTimeByOption(option: CurrentOption): number {
+    const prepareResultList: {option: CurrentOption, time: number}[] = [
+      {option: "work", time: this.state.conf.work},
+      {option: "longBreak", time: this.state.conf.longBreak},
+      {option: "shortBreak", time: this.state.conf.shortBreak},
+    ]
+    const find = prepareResultList.find(item => item.option === option);
+    return (find == null) ? 0 : find.time;
   }
 }
 

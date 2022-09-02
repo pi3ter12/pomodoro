@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from './card.component';
 import {SharedModule} from "../../shared/shared.module";
 import { ButtonComponent } from './button/button.component';
+import { TimerComponent } from './timer/timer.component';
 
 
 
 @NgModule({
   declarations: [
     CardComponent,
-    ButtonComponent
+    ButtonComponent,
+    TimerComponent
   ],
   imports: [
     CommonModule,

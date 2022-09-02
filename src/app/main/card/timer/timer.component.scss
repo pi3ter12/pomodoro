@@ -1,0 +1,11 @@
+@import "../../../shared/styles/colors";
+@import "../../../shared/styles/fonts";
+
+.timer {
+  @include default-font;
+  font-size: 8rem;
+  color: $textColor;
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+}

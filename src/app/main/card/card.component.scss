@@ -6,9 +6,15 @@
   @include default-font;
   background-color: $backgroundElementMask;
   display: flex;
+  flex-direction: column;
 
-  & > * {
-    flex-grow: 1;
-    margin: .5rem;
+  .timer-options {
+    display: flex;
+
+    & > * {
+      flex-grow: 1;
+      margin: .5rem;
+    }
   }
+
 }

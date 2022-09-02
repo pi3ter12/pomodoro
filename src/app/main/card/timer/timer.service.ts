@@ -56,6 +56,7 @@ export class TimerService {
   }
 
   private startSubscription(): void {
+    this.stopSubscription();
     this.intervalSubscription = interval(1000).pipe(
       tap(() => {
         if (this.state.time > 0) {
@@ -70,14 +71,12 @@ export class TimerService {
   }
 
   public changeStep(next: boolean) {
-    this.stopSubscription();
     this.changeOption(next)
   }
 
   public changeRound(round: number): void {
     const step = this.steps.filter(item => item.type === 'work')
       .sort((a, b) => a.index > b.index ? 1 : -1)[round-1];
-    this.stopSubscription();
     this.setStep(step);
   }
 

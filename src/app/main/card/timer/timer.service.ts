@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {interval, Subject, Subscription, tap} from "rxjs";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,14 @@ export class TimerService {
   constructor() {
     this.state = {
       conf: {
-        work: 5,//25*60,
-        longBreak: 3,//15*60,
-        shortBreak: 2,//5*60
+        work: environment.timerConf.work,
+        longBreak: environment.timerConf.longBreak,
+        shortBreak: environment.timerConf.shortBreak
       },
-      time: 5,//25*60,
+      time: environment.timerConf.work,
       currentOption: "work",
       working: false,
-      rounds: 4,
+      rounds: environment.timerConf.rounds,
       currentStep: 0
     }
     this.generateSteps();
@@ -77,7 +78,7 @@ export class TimerService {
     }
     if (step != null) {
       this.state.currentStep = newStep;
-      this.setSelectedOption(step.type);
+      this.setSelectedOption(step.type, false);
       this.startSubscription();
     }
   }
@@ -88,10 +89,36 @@ export class TimerService {
     }
   }
 
-  public setSelectedOption(option: CurrentOption): void {
+  public setSelectedOption(option: CurrentOption, manuallyChanged: boolean): void {
     this.state.currentOption = option;
+    if (manuallyChanged) {
+      this.state.currentStep = this.getNextCorrectStepInManualChange(option)
+    }
     this.state.time = this.getTimeByOption(option);
     this.notify();
+  }
+
+  getNextCorrectStepInManualChange(option: CurrentOption): number {
+    const searchStep = (searchOption: CurrentOption, startIndex: number): number | undefined => {
+      for (let i = startIndex; i < this.steps.length; i++) {
+        const foundStep = this.steps?.find((item) => item.index === i)
+        if (foundStep == null) {
+          return undefined;
+        }
+        if (foundStep.type === searchOption) {
+          return foundStep.index
+        }
+      }
+      return undefined;
+    }
+    if (option !== this.steps?.find(item => item.index === this.state.currentStep)?.type) {
+      let searchResult = searchStep(option, this.state.currentStep);
+      if (searchResult == null) {
+        searchResult = searchStep(option, 0);
+      }
+      return searchResult || 0;
+    }
+    return 0;
   }
 
   public getState(): TimerState {

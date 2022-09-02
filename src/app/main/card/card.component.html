@@ -1,3 +1,17 @@
 <div class="card-container">
-  test
+  <app-button
+    [text]="'main.options.work'"
+    (isClicked)="handleOptionChange('work')"
+    [isSelected]="selectedOption === 'work'">
+  </app-button>
+  <app-button
+    [text]="'main.options.shortBreak'"
+    (isClicked)="handleOptionChange('shortBreak')"
+    [isSelected]="selectedOption === 'shortBreak'">
+  </app-button>
+  <app-button
+    [text]="'main.options.longBreak'"
+    (isClicked)="handleOptionChange('longBreak')"
+    [isSelected]="selectedOption === 'longBreak'">
+  </app-button>
 </div>

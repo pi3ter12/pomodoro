@@ -2,5 +2,12 @@
   "nav": {
     "title": "Pomodoro App",
     "subtitle": "by Pi3ter"
+  },
+  "main": {
+    "options": {
+      "work": "Work",
+      "shortBreak": "Short Break",
+      "longBreak": "Long Break"
+    }
   }
 }

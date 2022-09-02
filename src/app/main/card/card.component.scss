@@ -5,4 +5,10 @@
   max-height: 600px;
   @include default-font;
   background-color: $backgroundElementMask;
+  display: flex;
+
+  & > * {
+    flex-grow: 1;
+    margin: .5rem;
+  }
 }

@@ -11,6 +11,7 @@ export class CardComponent implements OnInit, OnDestroy {
   selectedOption: CurrentOption = 'work';
   seconds: number = 0;
   step: number = 0;
+  rounds: number = 0;
   working: boolean = false;
   private stateChangeSubscription: Subscription | undefined;
 
@@ -46,5 +47,6 @@ export class CardComponent implements OnInit, OnDestroy {
     this.seconds = state.time;
     this.working = state.working;
     this.step = state.currentStep;
+    this.rounds = state.rounds;
   }
 }

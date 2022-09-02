@@ -6,6 +6,8 @@ import { ButtonComponent } from './button/button.component';
 import { TimerComponent } from './timer/timer.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { FooterComponent } from './footer/footer.component';
+import { NumberToListPipe } from './control-panel/pipe/number-to-list.pipe';
+import { StepToRoundPipe } from './pipe/step-to-round.pipe';
 
 
 
@@ -15,7 +17,9 @@ import { FooterComponent } from './footer/footer.component';
     ButtonComponent,
     TimerComponent,
     ControlPanelComponent,
-    FooterComponent
+    FooterComponent,
+    NumberToListPipe,
+    StepToRoundPipe
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,8 @@ import {CurrentOption} from "../timer/timer.service";
 })
 export class ControlPanelComponent implements OnInit {
   @Input() working: boolean = false;
+  @Input() rounds: number = 0;
+  @Input() currentStep: number = 0;
   @Input() theme: CurrentOption = 'work';
 
   @Output() onStart: EventEmitter<void> = new EventEmitter<void>();

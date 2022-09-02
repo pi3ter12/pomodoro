@@ -11,7 +11,8 @@
     },
     "controlPanel": {
       "start": "Start",
-      "stop": "Stop"
+      "stop": "Stop",
+      "selectRound": "Select round"
     },
     "footer": {
       "work": "It's a time for work!!",

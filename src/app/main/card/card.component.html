@@ -25,6 +25,8 @@
       (onStart)="handleWorkingButton(true)"
       (onStop)="handleWorkingButton(false)"
       (onNavClick)="handleNavClick($event)"
+      [rounds]="rounds"
+      [currentStep]="step"
       [working]="working">
     </app-control-panel>
   </div>

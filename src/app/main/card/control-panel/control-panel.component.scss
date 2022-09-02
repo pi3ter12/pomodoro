@@ -3,6 +3,7 @@
 
 .control-panel {
   position: relative;
+
   .control-button {
     height: 4rem;
     min-width: 50%;
@@ -26,12 +27,51 @@
       font-size: 4rem;
       min-width: unset;
     }
+
     &.next-button {
       right: 1rem;
     }
+
     &.prev-button {
       left: 1rem;
     }
+
     @include colorTheme;
+  }
+
+  .rounds {
+    display: flex;
+    flex-direction: column;
+
+    .round-title {
+      @include default-font;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .rounds-buttons {
+      display: flex;
+      margin: auto;
+
+      .rounds-button {
+        border: 0;
+        @include default-font;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        margin: .5rem;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &.is-not-selected {
+          color: $textColor !important;
+          background-color: $backgroundButtonMask;
+        }
+        &.is-selected {
+          background-color: $textColor !important;
+          @include colorTheme;
+        }
+      }
+    }
   }
 }

@@ -13,4 +13,19 @@
       >
     </button>
   </div>
+  <div class="rounds">
+    <div class="round-title">
+      {{'main.controlPanel.selectRound' | translate}}
+    </div>
+    <div class="rounds-buttons">
+      <ng-container *ngFor="let i of (rounds | numberToList:1)">
+        <button class="rounds-button is-selected" [ngClass]="theme" *ngIf="(currentStep | stepToRound) === i">
+          {{i}}
+        </button>
+        <button class="rounds-button is-not-selected" *ngIf="(currentStep | stepToRound) !== i">
+          {{i}}
+        </button>
+      </ng-container>
+    </div>
+  </div>
 </div>

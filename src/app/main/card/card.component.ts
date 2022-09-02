@@ -31,7 +31,9 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   public handleOptionChange(state: CurrentOption): void {
-    this.timerService.setSelectedOption(state, true);
+    if (this.selectedOption !== state) {
+      this.timerService.setSelectedOption(state, true);
+    }
   }
 
   handleWorkingButton(start: boolean): void {

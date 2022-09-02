@@ -1,6 +1,34 @@
-$background: rgb(217, 85, 80);
+$background: #b32f2f;
 $backgroundElementMask: rgba(255, 255, 255, 0.1);
 $backgroundButtonMask: rgba(0, 0, 0, 0.15);
 $secondaryColor: #fff;
 $textColor: #fff;
 $borderColor: #978888;
+
+$workBackground: $background;
+$shortBreakBackground: rgb(60, 101, 150);
+$longBreakBackground: #4d6c63;
+
+@mixin theme {
+  &.work {
+    background-color: $workBackground;
+  }
+  &.shortBreak {
+    background-color: $shortBreakBackground;
+  }
+  &.longBreak {
+    background-color: $longBreakBackground;
+  }
+}
+
+@mixin colorTheme {
+  &.work {
+    color: $workBackground;
+  }
+  &.shortBreak {
+    color: $shortBreakBackground;
+  }
+  &.longBreak {
+    color: $longBreakBackground;
+  }
+}

@@ -20,7 +20,7 @@ export class TimerComponent implements OnChanges {
   }
 
   private prepareValue(): void {
-    const minutes = Math.min(this.seconds / 60);
+    const minutes = Math.floor(this.seconds / 60);
     const seconds = this.seconds - (minutes * 60);
     this.value = {
       minutes: this.formatValue(minutes),

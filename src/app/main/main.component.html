@@ -1,6 +1,6 @@
-<div class="main-container">
+<div class="main-container" [ngClass]="selectedOption">
   <div class="nav">
-    <app-nav></app-nav>
+    <app-nav [theme]="selectedOption"></app-nav>
   </div>
   <div class="card-container">
     <div>

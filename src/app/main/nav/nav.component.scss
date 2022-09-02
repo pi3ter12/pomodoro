@@ -4,6 +4,7 @@
 .nav-container {
   @include default-font;
   background-color: $background;
+  @include theme;
   display: flex;
   min-height: 4rem;
   line-height: 4rem;

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CurrentOption} from "../timer/timer.service";
 
 @Component({
   selector: 'app-control-panel',
@@ -7,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ControlPanelComponent implements OnInit {
   @Input() working: boolean = false;
+  @Input() theme: CurrentOption = 'work';
 
   @Output() onStart: EventEmitter<void> = new EventEmitter<void>();
   @Output() onStop: EventEmitter<void> = new EventEmitter<void>();

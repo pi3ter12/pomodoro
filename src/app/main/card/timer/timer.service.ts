@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs";
+import {interval, Subject, Subscription, takeUntil, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimerService {
   private state: TimerState;
+  private intervalSubscription: Subscription | undefined = undefined;
   private onStateChangeSubject: Subject<TimerState> = new Subject<TimerState>();
   public onStateChange = this.onStateChangeSubject.asObservable();
 
   constructor() {
     this.state = {
       conf: {
-        work: 25*60,
-        longBreak: 15*60,
-        shortBreak: 5*60
+        work: 25,//*60,
+        longBreak: 15,//*60,
+        shortBreak: 5,//*60
       },
-      time: 25*60,
+      time: 25,//*60,
       currentOption: "work",
       working: false
     }
@@ -28,14 +29,40 @@ export class TimerService {
 
   public start() {
     this.state.working = true;
-    // todo: set timer
+    this.startSubscription();
     this.notify();
   }
 
   public changeWorking(value: boolean): void {
     this.state.working = value;
-    // todo: stop timer
+    value ? this.startSubscription() : this.stopSubscription();
     this.notify();
+  }
+
+  private startSubscription(): void {
+    this.intervalSubscription = interval(1000).pipe(
+      tap(() => {
+        if (this.state.time > 0) {
+          this.state.time--;
+          this.notify();
+        } else {
+          this.stopSubscription();
+          this.nextOption();
+        }
+      }),
+    ).subscribe();
+  }
+
+  private nextOption(): void {
+    // todo
+    this.setSelectedOption('shortBreak');
+    this.startSubscription();
+  }
+
+  private stopSubscription(): void {
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
   }
 
   public setSelectedOption(option: CurrentOption): void {

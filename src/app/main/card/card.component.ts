@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 export class CardComponent implements OnInit, OnDestroy {
   selectedOption: CurrentOption = 'work';
   seconds: number = 0;
+  working: boolean = false;
   private stateChangeSubscription: Subscription | undefined;
 
   constructor(private timerService: TimerService) {
@@ -31,8 +32,13 @@ export class CardComponent implements OnInit, OnDestroy {
     this.timerService.setSelectedOption(state);
   }
 
+  handleWorkingButton(start: boolean): void {
+    this.timerService.changeWorking(start);
+  }
+
   private handleStateUpdate(state: TimerState): void {
     this.selectedOption = state.currentOption;
     this.seconds = state.time;
+    this.working = state.working;
   }
 }

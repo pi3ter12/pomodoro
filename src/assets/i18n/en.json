@@ -8,6 +8,15 @@
       "work": "Work",
       "shortBreak": "Short Break",
       "longBreak": "Long Break"
+    },
+    "controlPanel": {
+      "start": "Start",
+      "stop": "Stop"
+    },
+    "footer": {
+      "work": "It's a time for work!!",
+      "shortBreak": "Time for a break!",
+      "longBreak": "It's a time for long break. :) Go to the lunch!!!"
     }
   }
 }

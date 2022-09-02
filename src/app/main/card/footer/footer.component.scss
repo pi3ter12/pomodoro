@@ -1,0 +1,10 @@
+@import "../../../shared/styles/colors";
+@import "../../../shared/styles/fonts";
+
+.footer {
+  @include default-font;
+  text-align: center;
+  margin-top: 0;
+  font-size: 1.2rem;
+  padding: 1rem;
+}

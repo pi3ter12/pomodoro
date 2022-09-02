@@ -17,7 +17,8 @@ export class TimerService {
         shortBreak: 5*60
       },
       time: 25*60,
-      currentOption: "work"
+      currentOption: "work",
+      working: false
     }
   }
 
@@ -25,14 +26,30 @@ export class TimerService {
     return this.state.currentOption;
   }
 
+  public start() {
+    this.state.working = true;
+    // todo: set timer
+    this.notify();
+  }
+
+  public changeWorking(value: boolean): void {
+    this.state.working = value;
+    // todo: stop timer
+    this.notify();
+  }
+
   public setSelectedOption(option: CurrentOption): void {
     this.state.currentOption = option;
     this.state.time = this.getTimeByOption(option);
-    this.onStateChangeSubject.next(this.state);
+    this.notify();
   }
 
   public getState(): TimerState {
     return this.state;
+  }
+
+  private notify(): void {
+    this.onStateChangeSubject.next(this.state);
   }
 
   private getTimeByOption(option: CurrentOption): number {
@@ -54,5 +71,6 @@ export interface TimerState {
   },
   currentOption: CurrentOption;
   time: number;
+  working: boolean;
 }
 export type CurrentOption =  'work' | 'longBreak' | 'shortBreak';

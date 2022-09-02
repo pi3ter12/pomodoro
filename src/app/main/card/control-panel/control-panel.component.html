@@ -1,0 +1,13 @@
+<div class="control-panel">
+  <div class="start-button">
+    <button class="control-button" *ngIf="!working" (click)="handleStart();">
+      {{'main.controlPanel.start' | translate}}
+    </button>
+    <button class="control-button" *ngIf="working" (click)="handleStop()">
+      {{'main.controlPanel.stop' | translate}}
+    </button>
+    <button class="control-button next-button" *ngIf="working">
+      >
+    </button>
+  </div>
+</div>

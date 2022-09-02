@@ -4,6 +4,8 @@ import { CardComponent } from './card.component';
 import {SharedModule} from "../../shared/shared.module";
 import { ButtonComponent } from './button/button.component';
 import { TimerComponent } from './timer/timer.component';
+import { ControlPanelComponent } from './control-panel/control-panel.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -11,7 +13,9 @@ import { TimerComponent } from './timer/timer.component';
   declarations: [
     CardComponent,
     ButtonComponent,
-    TimerComponent
+    TimerComponent,
+    ControlPanelComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,30 @@
+@import "../../../shared/styles/colors";
+@import "../../../shared/styles/fonts";
+
+.control-panel {
+  position: relative;
+  .control-button {
+    height: 4rem;
+    min-width: 50%;
+    border: 0;
+    @include default-font;
+    color: $background;
+    font-size: 2rem;
+    line-height: 3rem;
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.next-button {
+      background: transparent;
+      color: $textColor;
+      position: absolute;
+      right: 1rem;
+      padding-top: 0;
+      line-height: 3rem;
+      font-size: 4rem;
+      min-width: unset;
+    }
+  }
+}

@@ -9,7 +9,9 @@ export class TimerService {
   private state: TimerState;
   private intervalSubscription: Subscription | undefined = undefined;
   private onStateChangeSubject: Subject<TimerState> = new Subject<TimerState>();
+  private onPlayAlarmSubject: Subject<void> = new Subject<void>();
   public onStateChange = this.onStateChangeSubject.asObservable();
+  public onPlayAlarm = this.onPlayAlarmSubject.asObservable();
 
   private steps: Step[] = [];
 
@@ -63,6 +65,7 @@ export class TimerService {
           this.state.time--;
           this.notify();
         } else {
+          this.onPlayAlarmSubject.next();
           this.stopSubscription();
           this.changeOption(true);
         }

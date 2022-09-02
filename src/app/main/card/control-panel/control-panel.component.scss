@@ -16,15 +16,21 @@
     border-radius: 4px;
     cursor: pointer;
 
-    &.next-button {
+    &.next-button,
+    &.prev-button {
       background: transparent;
       color: $textColor;
       position: absolute;
-      right: 1rem;
       padding-top: 0;
       line-height: 3rem;
       font-size: 4rem;
       min-width: unset;
+    }
+    &.next-button {
+      right: 1rem;
+    }
+    &.prev-button {
+      left: 1rem;
     }
     @include colorTheme;
   }

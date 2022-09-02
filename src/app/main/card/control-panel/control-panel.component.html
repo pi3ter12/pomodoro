@@ -1,12 +1,15 @@
 <div class="control-panel">
   <div class="start-button">
+    <button class="control-button prev-button" *ngIf="working" (click)="handleNavClick(false)">
+      <
+    </button>
     <button class="control-button" [ngClass]="theme" *ngIf="!working" (click)="handleStart();">
       {{'main.controlPanel.start' | translate}}
     </button>
     <button class="control-button" [ngClass]="theme" *ngIf="working" (click)="handleStop()">
       {{'main.controlPanel.stop' | translate}}
     </button>
-    <button class="control-button next-button" *ngIf="working">
+    <button class="control-button next-button" *ngIf="working" (click)="handleNavClick(true)">
       >
     </button>
   </div>

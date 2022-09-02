@@ -24,6 +24,7 @@
       [theme]="selectedOption"
       (onStart)="handleWorkingButton(true)"
       (onStop)="handleWorkingButton(false)"
+      (onNavClick)="handleNavClick($event)"
       [working]="working">
     </app-control-panel>
   </div>

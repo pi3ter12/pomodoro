@@ -12,6 +12,7 @@ export class ControlPanelComponent implements OnInit {
 
   @Output() onStart: EventEmitter<void> = new EventEmitter<void>();
   @Output() onStop: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onNavClick: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -24,5 +25,9 @@ export class ControlPanelComponent implements OnInit {
 
   handleStop(): void {
     this.onStop.emit();
+  }
+
+  handleNavClick(next: boolean): void {
+    this.onNavClick.emit(next);
   }
 }

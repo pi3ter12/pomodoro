@@ -63,18 +63,24 @@ export class TimerService {
           this.notify();
         } else {
           this.stopSubscription();
-          this.nextOption();
+          this.changeOption(true);
         }
       }),
     ).subscribe();
   }
 
-  private nextOption(): void {
-    let step = this.steps.find(item => item.index === this.state.currentStep + 1);
-    let newStep = this.state.currentStep + 1;
+  public changeStep(next: boolean) {
+    this.stopSubscription();
+    this.changeOption(next)
+  }
+
+  private changeOption(next: boolean = true): void {
+    const prevOrNextStep = (next) ? this.state.currentStep + 1 : this.state.currentStep - 1;
+    let step = this.steps.find(item => item.index === prevOrNextStep);
+    let newStep = prevOrNextStep;
     if (step == null) {
-      step = this.steps.find(item => item.index === 0);
-      newStep = 0;
+      newStep = (next) ? 0 : this.steps.length - 1;
+      step = this.steps.find(item => item.index === newStep);
     }
     if (step != null) {
       this.state.currentStep = newStep;

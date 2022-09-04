@@ -8,6 +8,7 @@ import {ControlPanelComponent} from './control-panel/control-panel.component';
 import {FooterComponent} from './footer/footer.component';
 import {NumberToListPipe} from './control-panel/pipe/number-to-list.pipe';
 import {StepToRoundPipe} from './pipe/step-to-round.pipe';
+import { BellComponent } from './bell/bell.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {StepToRoundPipe} from './pipe/step-to-round.pipe';
     ControlPanelComponent,
     FooterComponent,
     NumberToListPipe,
-    StepToRoundPipe
+    StepToRoundPipe,
+    BellComponent
   ],
   imports: [
     CommonModule,

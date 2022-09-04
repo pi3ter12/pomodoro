@@ -4,6 +4,7 @@ import {Store} from "@ngrx/store";
 import {loadState} from "../../store/timer/timer.actions";
 import {selectTimerState} from "../../store/timer/timer.selectors";
 import {tap} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,12 @@ export class StateBackupService {
   private static readonly LOCAL_STORAGE_KEY = 'POMODORO_CONF';
 
   constructor(private store: Store) {
-    this.loadStateFromLocalStorage();
-    this.store.select(selectTimerState)
-      .pipe(tap(state => this.saveStateInLocalStorage(state)))
-      .subscribe();
+    if (environment.saveInLocalStorage) {
+      this.loadStateFromLocalStorage();
+      this.store.select(selectTimerState)
+        .pipe(tap(state => this.saveStateInLocalStorage(state)))
+        .subscribe();
+    }
   }
 
   private loadStateFromLocalStorage(): void {

@@ -5,5 +5,6 @@ export const environmentCommon = {
     shortBreak: 5 * 60,
     rounds: 4,
   },
-  alarmTime: 5
+  alarmTime: 5,
+  saveInLocalStorage: true,
 }

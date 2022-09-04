@@ -3,17 +3,17 @@
     <app-button
       [text]="'main.options.work'"
       (isClicked)="handleOptionChange('work')"
-      [isSelected]="selectedOption === 'work'">
+      [isSelected]="currentOption === 'work'">
     </app-button>
     <app-button
       [text]="'main.options.shortBreak'"
       (isClicked)="handleOptionChange('shortBreak')"
-      [isSelected]="selectedOption === 'shortBreak'">
+      [isSelected]="currentOption === 'shortBreak'">
     </app-button>
     <app-button
       [text]="'main.options.longBreak'"
       (isClicked)="handleOptionChange('longBreak')"
-      [isSelected]="selectedOption === 'longBreak'">
+      [isSelected]="currentOption === 'longBreak'">
     </app-button>
   </div>
   <div class="timer">

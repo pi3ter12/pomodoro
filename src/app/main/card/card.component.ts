@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TimerService} from "./timer/timer.service";
-import {filter, Subscription} from "rxjs";
+import {filter, ReplaySubject, takeUntil} from "rxjs";
 import {Howl, Howler} from 'howler';
 import {environment} from "../../../environments/environment";
 import {Store} from '@ngrx/store';
 import {changeAlarmState, setSelectedOption} from "../../store/timer/timer.actions";
-import {selectPlayAlarm, selectTimerState} from "../../store/timer/timer.selectors";
-import {CurrentOption, TimerState} from "../../store/timer/timer.model";
+import {selectCurrentOption, selectPlayAlarm} from "../../store/timer/timer.selectors";
+import {CurrentOption} from "../../store/timer/timer.model";
 
 @Component({
   selector: 'app-card',
@@ -14,47 +14,35 @@ import {CurrentOption, TimerState} from "../../store/timer/timer.model";
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit, OnDestroy {
-  selectedOption: CurrentOption = 'work';
-  seconds: number = 0;
-  step: number = 0;
-  rounds: number = 0;
-  working: boolean = false;
-  private stateChangeSubscription: Subscription | undefined;
-  private onPlayAlarmSubscription: Subscription | undefined;
+  currentOption: CurrentOption = 'work';
   private alarm: Howl | undefined;
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private timerService: TimerService,
               private store: Store) {
   }
 
   ngOnInit(): void {
-    this.stateChangeSubscription = this.store.select(selectTimerState)
-      .subscribe((state: TimerState) => this.handleStateUpdate(state));
+    this.store.select(selectCurrentOption)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((currentOption: CurrentOption) => this.currentOption = currentOption);
 
     this.alarm = this.getSound();
-    this.onPlayAlarmSubscription = this.store.select(selectPlayAlarm)
-      .pipe(filter(isOn => isOn))
-      .subscribe(() => this.playAlarm());
+    this.store.select(selectPlayAlarm).pipe(
+      takeUntil(this.destroyed$),
+      filter(isOn => isOn)
+    ).subscribe(() => this.playAlarm());
   }
 
   ngOnDestroy() {
-    if (this.stateChangeSubscription) {
-      this.stateChangeSubscription.unsubscribe();
-    }
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
   public handleOptionChange(option: CurrentOption): void {
-    if (this.selectedOption !== option) {
+    if (this.currentOption !== option) {
       this.store.dispatch(setSelectedOption({option, manuallyChanged: true}));
     }
-  }
-
-  private handleStateUpdate(state: TimerState): void {
-    this.selectedOption = state.currentOption;
-    this.seconds = state.time;
-    this.working = state.working;
-    this.step = state.currentStep;
-    this.rounds = state.rounds;
   }
 
   private getSound(): Howl {

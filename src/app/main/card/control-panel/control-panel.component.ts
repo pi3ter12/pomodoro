@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ControlPanelConf} from "../../../store/timer/timer.model";
 import {Store} from "@ngrx/store";
 import {selectControlPanelConf} from "../../../store/timer/timer.selectors";
-import {tap} from "rxjs";
+import {ReplaySubject, takeUntil, tap} from "rxjs";
 import {changeOption, changeRound, start, stop} from "../../../store/timer/timer.actions";
 
 @Component({
@@ -10,16 +10,23 @@ import {changeOption, changeRound, start, stop} from "../../../store/timer/timer
   templateUrl: './control-panel.component.html',
   styleUrls: ['./control-panel.component.scss']
 })
-export class ControlPanelComponent implements OnInit {
+export class ControlPanelComponent implements OnInit, OnDestroy {
   conf: ControlPanelConf | undefined;
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.store.select(selectControlPanelConf)
-      .pipe(tap(conf => this.conf = conf))
-      .subscribe();
+    this.store.select(selectControlPanelConf).pipe(
+      tap(conf => this.conf = conf),
+      takeUntil(this.destroyed$)
+    ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
   handleStart(): void {

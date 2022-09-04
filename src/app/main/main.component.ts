@@ -3,6 +3,7 @@ import {ReplaySubject, takeUntil, tap} from "rxjs";
 import {Store} from "@ngrx/store";
 import {selectCurrentOption} from "../store/timer/timer.selectors";
 import {CurrentOption} from "../store/timer/timer.model";
+import {StateBackupService} from "../shared/service/state-backup.service";
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,8 @@ export class MainComponent implements OnInit, OnDestroy {
   selectedOption: CurrentOption = 'work'
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  constructor(private store: Store) {
+  constructor(private store: Store,
+              private stateBackupService: StateBackupService) {
   }
 
   ngOnInit() {

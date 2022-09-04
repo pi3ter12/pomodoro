@@ -4,6 +4,7 @@ import {TimerState} from './timer.model';
 import {
   changeAlarmState,
   decreaseTimeByOneSecond,
+  loadState,
   setCurrentStep,
   setSelectedOption,
   setStep,
@@ -41,6 +42,10 @@ export const timerReducer = createReducer(
   on(changeAlarmState, (state, {isOn}) => ({
     ...state,
     playAlarm: isOn
+  })),
+  on(loadState, (state, {newState}) => ({
+    ...state,
+    ...newState
   })),
   on(setSelectedOption, (state, {option, manuallyChanged}) => {
     let newCurrentStep = state.currentStep;

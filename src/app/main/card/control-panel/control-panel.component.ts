@@ -1,5 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CurrentOption} from "../../../store/timer/timer.model";
+import {Component, OnInit} from '@angular/core';
+import {ControlPanelConf} from "../../../store/timer/timer.model";
+import {Store} from "@ngrx/store";
+import {selectControlPanelConf} from "../../../store/timer/timer.selectors";
+import {tap} from "rxjs";
+import {changeOption, changeRound, start, stop} from "../../../store/timer/timer.actions";
 
 @Component({
   selector: 'app-control-panel',
@@ -7,35 +11,30 @@ import {CurrentOption} from "../../../store/timer/timer.model";
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
-  @Input() working: boolean = false;
-  @Input() rounds: number = 0;
-  @Input() currentStep: number = 0;
-  @Input() theme: CurrentOption = 'work';
+  conf: ControlPanelConf | undefined;
 
-  @Output() onStart: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onStop: EventEmitter<void> = new EventEmitter<void>();
-  @Output() onNavClick: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() onRoundChange: EventEmitter<number> = new EventEmitter<number>();
-
-  constructor() {
+  constructor(private store: Store) {
   }
 
   ngOnInit(): void {
+    this.store.select(selectControlPanelConf)
+      .pipe(tap(conf => this.conf = conf))
+      .subscribe();
   }
 
   handleStart(): void {
-    this.onStart.emit();
+    this.store.dispatch(start());
   }
 
   handleStop(): void {
-    this.onStop.emit();
+    this.store.dispatch(stop());
   }
 
   handleNavClick(next: boolean): void {
-    this.onNavClick.emit(next);
+    this.store.dispatch(changeOption({next}))
   }
 
   handleRoundChange(value: number): void {
-    this.onRoundChange.emit(value);
+    this.store.dispatch(changeRound({round: value}))
   }
 }

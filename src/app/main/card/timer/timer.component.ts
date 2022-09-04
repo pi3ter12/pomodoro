@@ -1,28 +1,32 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {getTime} from "../../../store/timer/timer.selectors";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent implements OnChanges {
-  @Input() seconds: number = 0;
+export class TimerComponent implements OnInit {
 
   value: { minutes: string, seconds: string } = {
     minutes: '00',
     seconds: '00'
   }
 
-  constructor() {
+  constructor(private store: Store) {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.prepareValue();
+  ngOnInit() {
+    this.store.select(getTime).pipe(
+      tap((time) => this.prepareValue(time))
+    ).subscribe();
   }
 
-  private prepareValue(): void {
-    const minutes = Math.floor(this.seconds / 60);
-    const seconds = this.seconds - (minutes * 60);
+  private prepareValue(time: number): void {
+    const minutes = Math.floor(time / 60);
+    const seconds = time - (minutes * 60);
     this.value = {
       minutes: this.formatValue(minutes),
       seconds: this.formatValue(seconds)

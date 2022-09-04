@@ -17,21 +17,12 @@
     </app-button>
   </div>
   <div class="timer">
-    <app-timer [seconds]="seconds"></app-timer>
+    <app-timer></app-timer>
   </div>
   <div class="control-panel">
-    <app-control-panel
-      [theme]="selectedOption"
-      (onStart)="handleWorkingButton(true)"
-      (onStop)="handleWorkingButton(false)"
-      (onNavClick)="handleNavClick($event)"
-      (onRoundChange)="handleRoundChange($event)"
-      [rounds]="rounds"
-      [currentStep]="step"
-      [working]="working">
-    </app-control-panel>
+    <app-control-panel></app-control-panel>
   </div>
   <div class="footer">
-    <app-footer [currentOption]="selectedOption" [step]="step"></app-footer>
+    <app-footer></app-footer>
   </div>
 </div>

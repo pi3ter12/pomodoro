@@ -1,15 +1,15 @@
-<div class="control-panel">
+<div class="control-panel" *ngIf="conf != null">
   <div class="start-button">
-    <button class="control-button prev-button" *ngIf="true || working" (click)="handleNavClick(false)">
+    <button class="control-button prev-button" *ngIf="conf.working" (click)="handleNavClick(false)">
       <
     </button>
-    <button class="control-button" [ngClass]="theme" *ngIf="!working" (click)="handleStart();">
+    <button class="control-button" [ngClass]="conf.currentOption" *ngIf="!conf.working" (click)="handleStart();">
       {{'main.controlPanel.start' | translate}}
     </button>
-    <button class="control-button" [ngClass]="theme" *ngIf="working" (click)="handleStop()">
+    <button class="control-button" [ngClass]="conf.currentOption" *ngIf="conf.working" (click)="handleStop()">
       {{'main.controlPanel.stop' | translate}}
     </button>
-    <button class="control-button next-button" *ngIf="true || working" (click)="handleNavClick(true)">
+    <button class="control-button next-button" *ngIf="conf.working" (click)="handleNavClick(true)">
       >
     </button>
   </div>
@@ -18,15 +18,15 @@
       {{'main.controlPanel.selectRound' | translate}}
     </div>
     <div class="rounds-buttons">
-      <ng-container *ngFor="let i of (rounds | numberToList:1)">
+      <ng-container *ngFor="let i of (conf.rounds | numberToList:1)">
         <button class="rounds-button is-selected"
-                [ngClass]="theme"
-                *ngIf="(currentStep | stepToRound) === i">
+                [ngClass]="conf.currentOption"
+                *ngIf="(conf.currentStep | stepToRound) === i">
           {{i}}
         </button>
         <button class="rounds-button is-not-selected"
                 (click)="handleRoundChange(i)"
-                *ngIf="(currentStep | stepToRound) !== i">
+                *ngIf="(conf.currentStep | stepToRound) !== i">
           {{i}}
         </button>
       </ng-container>

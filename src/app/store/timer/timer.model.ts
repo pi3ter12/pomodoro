@@ -19,3 +19,16 @@ export interface Step {
   index: number;
   type: CurrentOption;
 }
+
+export interface ControlPanelConf {
+  working: boolean;
+  rounds: number;
+  currentStep: number;
+  currentOption: CurrentOption;
+}
+
+
+export interface FooterConf {
+  currentStep: number;
+  currentOption: CurrentOption;
+}

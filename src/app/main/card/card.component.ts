@@ -4,14 +4,7 @@ import {filter, Subscription} from "rxjs";
 import {Howl, Howler} from 'howler';
 import {environment} from "../../../environments/environment";
 import {Store} from '@ngrx/store';
-import {
-  changeAlarmState,
-  changeOption,
-  changeRound,
-  setSelectedOption,
-  start,
-  stop
-} from "../../store/timer/timer.actions";
+import {changeAlarmState, setSelectedOption} from "../../store/timer/timer.actions";
 import {selectPlayAlarm, selectTimerState} from "../../store/timer/timer.selectors";
 import {CurrentOption, TimerState} from "../../store/timer/timer.model";
 
@@ -54,22 +47,6 @@ export class CardComponent implements OnInit, OnDestroy {
     if (this.selectedOption !== option) {
       this.store.dispatch(setSelectedOption({option, manuallyChanged: true}));
     }
-  }
-
-  handleWorkingButton(value: boolean): void {
-    if (value) {
-      this.store.dispatch(start());
-    } else {
-      this.store.dispatch(stop());
-    }
-  }
-
-  handleNavClick(isNext: boolean): void {
-    this.store.dispatch(changeOption({next: isNext}))
-  }
-
-  handleRoundChange(value: number): void {
-    this.store.dispatch(changeRound({round: value}))
   }
 
   private handleStateUpdate(state: TimerState): void {

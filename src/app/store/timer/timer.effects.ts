@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {filter, map, of, switchMap, take, tap, zip} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
+import {filter, map, of, switchMap, take, zip} from 'rxjs';
 import {
   changeAlarmState,
   changeOption,
@@ -54,7 +53,7 @@ export class TimerEffects {
     switchMap((action) => zip(this.store.select(selectSteps), of(action))),
     map(([steps, action]) => {
       return steps.filter(item => item.type === 'work')
-        .sort((a, b) => a.index > b.index ? 1 : -1)[action.round-1];
+        .sort((a, b) => a.index > b.index ? 1 : -1)[action.round - 1];
     }),
     filter(step => step != null),
     map(step => setStep({step}))

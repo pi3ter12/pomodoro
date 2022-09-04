@@ -31,7 +31,7 @@ export const setStep = createAction(
 )
 export const setSelectedOption = createAction(
   '[Timer] Set Selected Option',
-  props<{ option: CurrentOption, manuallyChanged: boolean}>()
+  props<{ option: CurrentOption, manuallyChanged: boolean }>()
 )
 
 export const setCurrentStep = createAction(

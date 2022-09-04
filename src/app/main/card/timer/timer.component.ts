@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -8,12 +8,13 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 export class TimerComponent implements OnChanges {
   @Input() seconds: number = 0;
 
-  value: {minutes: string, seconds: string} = {
+  value: { minutes: string, seconds: string } = {
     minutes: '00',
     seconds: '00'
   }
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.prepareValue();

@@ -17,7 +17,8 @@ export class ControlPanelComponent implements OnInit {
   @Output() onNavClick: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() onRoundChange: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

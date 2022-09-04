@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {interval, Subject, Subscription, tap, zip} from "rxjs";
+import {interval, Subscription, tap} from "rxjs";
 import {Store} from '@ngrx/store';
-import {getTime, getWorkingValue} from "../../../store/timer/timer.selectors";
-import {changeOption, decreaseTimeByOneSecond, doTimerInterval, start} from "../../../store/timer/timer.actions";
+import {getWorkingValue} from "../../../store/timer/timer.selectors";
+import {doTimerInterval} from "../../../store/timer/timer.actions";
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,7 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {TimerState} from "./timer.model";
 
-export const selectTimerState = createFeatureSelector<
-  Readonly<TimerState>
-  >('timer');
+export const selectTimerState = createFeatureSelector<Readonly<TimerState>>('timer');
 
 export const selectCurrentStep = createSelector(
   selectTimerState,

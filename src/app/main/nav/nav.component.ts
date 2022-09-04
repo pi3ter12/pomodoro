@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {selectCurrentOption} from "../../store/timer/timer.selectors";
 import {Store} from "@ngrx/store";
 import {tap} from "rxjs";
@@ -14,6 +14,7 @@ export class NavComponent {
 
   constructor(private store: Store) {
   }
+
   ngOnInit() {
     this.store.select(selectCurrentOption).pipe(
       tap(option => this.selectedOption = option)

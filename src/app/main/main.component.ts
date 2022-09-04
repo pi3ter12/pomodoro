@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription, tap} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {tap} from "rxjs";
 import {Store} from "@ngrx/store";
 import {selectCurrentOption} from "../store/timer/timer.selectors";
 import {CurrentOption} from "../store/timer/timer.model";
@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
 
   constructor(private store: Store) {
   }
+
   ngOnInit() {
     this.store.select(selectCurrentOption).pipe(
       tap(option => this.selectedOption = option)

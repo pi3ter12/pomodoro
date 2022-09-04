@@ -74,7 +74,7 @@ export const initialState: Readonly<TimerState> = {
 
 export const timerReducer = createReducer(
   initialState,
-  on(setCurrentStep, (state, { currentStep }) =>({...state, currentStep: currentStep})),
+  on(setCurrentStep, (state, {currentStep}) => ({...state, currentStep: currentStep})),
   on(start, (state) => ({...state, working: true})),
   on(stop, (state) => ({...state, working: false})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),

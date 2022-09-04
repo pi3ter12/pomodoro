@@ -3,6 +3,9 @@ import {CurrentOption, TimerService, TimerState} from "./timer/timer.service";
 import {Subscription} from "rxjs";
 import {Howl, Howler} from 'howler';
 import {environment} from "../../../environments/environment";
+import { Store } from '@ngrx/store';
+import {setCurrentStep} from "../../store/timer/timer.actions";
+import {selectCurrentStep} from "../../store/timer/timer.selectors";
 
 @Component({
   selector: 'app-card',
@@ -19,7 +22,8 @@ export class CardComponent implements OnInit, OnDestroy {
   private onPlayAlarmSubscription: Subscription | undefined;
   private alarm: Howl | undefined;
 
-  constructor(private timerService: TimerService) {
+  constructor(private timerService: TimerService,
+              private store: Store) {
   }
 
   ngOnInit(): void {
@@ -29,6 +33,13 @@ export class CardComponent implements OnInit, OnDestroy {
     this.alarm = this.getSound();
     this.onPlayAlarmSubscription = this.timerService.onPlayAlarm
       .subscribe(() => this.playAlarm());
+
+    this.store.select(selectCurrentStep)
+      .subscribe((item) => console.log('item', item))
+    this.store.dispatch(setCurrentStep({ stepId: 10 }));
+    this.store.dispatch(setCurrentStep({ stepId: 11 }));
+    this.store.dispatch(setCurrentStep({ stepId: 12 }));
+    this.store.dispatch(setCurrentStep({ stepId: 13 }));
   }
 
   ngOnDestroy() {

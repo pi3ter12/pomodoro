@@ -1,5 +1,3 @@
-import {CurrentOption} from "../../main/card/timer/timer.service";
-
 export interface TimerState {
   conf: {
     work: number;
@@ -11,4 +9,12 @@ export interface TimerState {
   working: boolean;
   rounds: number
   currentStep: number;
+  steps: Step[];
+}
+
+export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';
+
+export interface Step {
+  index: number;
+  type: CurrentOption;
 }

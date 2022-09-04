@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
-import {interval, Subject, Subscription, tap} from "rxjs";
+import {interval, Subject, Subscription, switchAll, switchMap, tap} from "rxjs";
 import {environment} from "../../../../environments/environment";
+import {Store} from '@ngrx/store';
+import {getTime, getWorkingValue} from "../../../store/timer/timer.selectors";
+import {decreaseTimeByOneSecond} from "../../../store/timer/timer.actions";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,7 @@ export class TimerService {
 
   private steps: Step[] = [];
 
-  constructor() {
+  constructor(private store: Store) {
     this.state = {
       conf: {
         work: environment.timerConf.work,
@@ -29,17 +32,23 @@ export class TimerService {
       currentStep: 0
     }
     this.generateSteps();
+
+
+    this.store.select(getWorkingValue)
+      .subscribe((working) => {
+        working ? this.startSubscription() : this.stopSubscription();
+      })
   }
 
   public getSelectedOption(): CurrentOption {
     return this.state.currentOption;
   }
 
-  public start() {
-    this.state.working = true;
-    this.startSubscription();
-    this.notify();
-  }
+  // public start() {
+  //   this.state.working = true;
+  //   this.startSubscription();
+  //   this.notify();
+  // }
 
   public changeWorking(value: boolean): void {
     this.state.working = value;
@@ -60,10 +69,12 @@ export class TimerService {
   private startSubscription(): void {
     this.stopSubscription();
     this.intervalSubscription = interval(1000).pipe(
-      tap(() => {
-        if (this.state.time > 0) {
-          this.state.time--;
-          this.notify();
+      switchMap(() => this.store.select(getTime)),
+      tap((time) => {
+        if (time > 0) {
+          // this.state.time--;
+          this.store.dispatch(decreaseTimeByOneSecond())
+          // this.notify();
         } else {
           this.onPlayAlarmSubject.next();
           this.stopSubscription();

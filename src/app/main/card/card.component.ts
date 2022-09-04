@@ -3,8 +3,8 @@ import {CurrentOption, TimerService, TimerState} from "./timer/timer.service";
 import {Subscription} from "rxjs";
 import {Howl, Howler} from 'howler';
 import {environment} from "../../../environments/environment";
-import { Store } from '@ngrx/store';
-import {setCurrentStep} from "../../store/timer/timer.actions";
+import {Store} from '@ngrx/store';
+import {changeOption, start, stop} from "../../store/timer/timer.actions";
 import {selectCurrentStep} from "../../store/timer/timer.selectors";
 
 @Component({
@@ -36,10 +36,10 @@ export class CardComponent implements OnInit, OnDestroy {
 
     this.store.select(selectCurrentStep)
       .subscribe((item) => console.log('item', item))
-    this.store.dispatch(setCurrentStep({ stepId: 10 }));
-    this.store.dispatch(setCurrentStep({ stepId: 11 }));
-    this.store.dispatch(setCurrentStep({ stepId: 12 }));
-    this.store.dispatch(setCurrentStep({ stepId: 13 }));
+    this.store.dispatch(changeOption({ next: true }));
+    // this.store.dispatch(setCurrentStep({ stepId: 11 }));
+    // this.store.dispatch(setCurrentStep({ stepId: 12 }));
+    // this.store.dispatch(setCurrentStep({ stepId: 13 }));
   }
 
   ngOnDestroy() {
@@ -54,8 +54,12 @@ export class CardComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleWorkingButton(start: boolean): void {
-    this.timerService.changeWorking(start);
+  handleWorkingButton(value: boolean): void {
+    if (value) {
+      this.store.dispatch(start());
+    } else {
+      this.store.dispatch(stop());
+    }
   }
 
   handleNavClick(isNext: boolean): void {

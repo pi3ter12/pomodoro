@@ -1,7 +1,7 @@
 import {CurrentOption, Step, TimerState} from "./timer.model";
 
 export class TimerUtil {
-  static generateSteps = (rounds: number): Step[] => { // todo: move to utils
+  static generateSteps = (rounds: number): Step[] => {
     const steps: Step[] = [];
     let index = 0;
     for (let i = 0; i < rounds; i++) {

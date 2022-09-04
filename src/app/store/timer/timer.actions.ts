@@ -1,11 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 import {CurrentOption, Step} from "./timer.model";
 
-// export const setCurrentStep = createAction(
-//   '[Timer] Set Current Step',
-//   props<{ stepId: number }>()
-// );
-
 export const start = createAction(
   '[Timer] Start'
 );

@@ -1,29 +1,22 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CurrentOption, TimerService} from "./card/timer/timer.service";
-import {Subscription} from "rxjs";
+import {Subscription, tap} from "rxjs";
+import {Store} from "@ngrx/store";
+import {selectCurrentOption} from "../store/timer/timer.selectors";
+import {CurrentOption} from "../store/timer/timer.model";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
-  selectedOption: CurrentOption = 'work';
-  private subscription: Subscription | undefined;
+export class MainComponent implements OnInit {
+  selectedOption: CurrentOption = 'work'
 
-  constructor(private timerService: TimerService) {
+  constructor(private store: Store) {
   }
-
-  ngOnInit(): void {
-    this.selectedOption = this.timerService.getSelectedOption();
-    this.subscription = this.timerService.onStateChange
-      .subscribe(({currentOption}) => this.selectedOption = currentOption)
+  ngOnInit() {
+    this.store.select(selectCurrentOption).pipe(
+      tap(option => this.selectedOption = option)
+    ).subscribe()
   }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
 }

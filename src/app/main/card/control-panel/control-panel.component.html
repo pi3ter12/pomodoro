@@ -1,6 +1,6 @@
 <div class="control-panel">
   <div class="start-button">
-    <button class="control-button prev-button" *ngIf="working" (click)="handleNavClick(false)">
+    <button class="control-button prev-button" *ngIf="true || working" (click)="handleNavClick(false)">
       <
     </button>
     <button class="control-button" [ngClass]="theme" *ngIf="!working" (click)="handleStart();">
@@ -9,7 +9,7 @@
     <button class="control-button" [ngClass]="theme" *ngIf="working" (click)="handleStop()">
       {{'main.controlPanel.stop' | translate}}
     </button>
-    <button class="control-button next-button" *ngIf="working" (click)="handleNavClick(true)">
+    <button class="control-button next-button" *ngIf="true || working" (click)="handleNavClick(true)">
       >
     </button>
   </div>

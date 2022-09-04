@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {CurrentOption} from "../card/timer/timer.service";
+import {selectCurrentOption} from "../../store/timer/timer.selectors";
+import {Store} from "@ngrx/store";
+import {tap} from "rxjs";
+import {CurrentOption} from "../../store/timer/timer.model";
 
 @Component({
   selector: 'app-nav',
@@ -7,5 +10,13 @@ import {CurrentOption} from "../card/timer/timer.service";
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
-  @Input() theme: CurrentOption = 'work';
+  selectedOption: CurrentOption = 'work'
+
+  constructor(private store: Store) {
+  }
+  ngOnInit() {
+    this.store.select(selectCurrentOption).pipe(
+      tap(option => this.selectedOption = option)
+    ).subscribe()
+  }
 }

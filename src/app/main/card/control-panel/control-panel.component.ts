@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CurrentOption} from "../timer/timer.service";
+import {CurrentOption} from "../../../store/timer/timer.model";
 
 @Component({
   selector: 'app-control-panel',

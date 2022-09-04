@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CurrentOption, TimerService, TimerState} from "./timer/timer.service";
+import {TimerService} from "./timer/timer.service";
 import {Subscription} from "rxjs";
 import {Howl, Howler} from 'howler';
 import {environment} from "../../../environments/environment";
 import {Store} from '@ngrx/store';
-import {changeOption, start, stop} from "../../store/timer/timer.actions";
-import {selectCurrentStep} from "../../store/timer/timer.selectors";
+import {changeOption, changeRound, setSelectedOption, start, stop} from "../../store/timer/timer.actions";
+import {selectTimerState} from "../../store/timer/timer.selectors";
+import {CurrentOption, TimerState} from "../../store/timer/timer.model";
 
 @Component({
   selector: 'app-card',
@@ -27,19 +28,16 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.handleStateUpdate(this.timerService.getState());
-    this.stateChangeSubscription = this.timerService.onStateChange
+    this.stateChangeSubscription = this.store.select(selectTimerState)
       .subscribe((state: TimerState) => this.handleStateUpdate(state));
+
     this.alarm = this.getSound();
     this.onPlayAlarmSubscription = this.timerService.onPlayAlarm
       .subscribe(() => this.playAlarm());
 
-    this.store.select(selectCurrentStep)
-      .subscribe((item) => console.log('item', item))
-    this.store.dispatch(changeOption({ next: true }));
-    // this.store.dispatch(setCurrentStep({ stepId: 11 }));
-    // this.store.dispatch(setCurrentStep({ stepId: 12 }));
-    // this.store.dispatch(setCurrentStep({ stepId: 13 }));
+    //todo: remove this
+    this.store.select(selectTimerState)
+      .subscribe((state) => console.log('stateChanged', state));
   }
 
   ngOnDestroy() {
@@ -48,9 +46,9 @@ export class CardComponent implements OnInit, OnDestroy {
     }
   }
 
-  public handleOptionChange(state: CurrentOption): void {
-    if (this.selectedOption !== state) {
-      this.timerService.setSelectedOption(state, true);
+  public handleOptionChange(option: CurrentOption): void {
+    if (this.selectedOption !== option) {
+      this.store.dispatch(setSelectedOption({option, manuallyChanged: true}));
     }
   }
 
@@ -63,11 +61,11 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   handleNavClick(isNext: boolean): void {
-    this.timerService.changeStep(isNext);
+    this.store.dispatch(changeOption({next: isNext}))
   }
 
   handleRoundChange(value: number): void {
-    this.timerService.changeRound(value);
+    this.store.dispatch(changeRound({round: value}))
   }
 
   private handleStateUpdate(state: TimerState): void {
@@ -93,7 +91,5 @@ export class CardComponent implements OnInit, OnDestroy {
         this.alarm?.stop(id)
       }, environment.alarmTime * 1000)
     }
-
-    // Change global volume.
   }
 }

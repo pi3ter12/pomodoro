@@ -9,6 +9,15 @@ export const selectCurrentStep = createSelector(
   selectTimerState,
   (timer) => timer.currentStep
 );
+export const selectCurrentOption = createSelector(
+  selectTimerState,
+  (timer) => timer.currentOption
+);
+
+export const selectSteps = createSelector(
+  selectTimerState,
+  (timer) => timer.steps
+)
 
 export const getWorkingValue = createSelector(
   selectTimerState,

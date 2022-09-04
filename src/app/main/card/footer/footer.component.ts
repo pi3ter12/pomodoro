@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {CurrentOption} from "../timer/timer.service";
+import {Component, Input} from '@angular/core';
+import {CurrentOption} from "../../../store/timer/timer.model";
 
 @Component({
   selector: 'app-footer',

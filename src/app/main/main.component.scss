@@ -5,7 +5,7 @@
   flex-direction: column;
   background-color: $background;
   @include theme;
-  height: 100vh;
+  min-height: 100vh;
 
   .card-container {
     flex-grow: 1;

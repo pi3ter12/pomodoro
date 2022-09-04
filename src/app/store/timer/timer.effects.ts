@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {filter, map, of, switchMap, tap, zip} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
-import {changeOption, setCurrentStep, setSelectedOption, setStep} from "./timer.actions";
+import {changeOption, changeRound, setCurrentStep, setSelectedOption, setStep} from "./timer.actions";
 import {Store} from "@ngrx/store";
-import {selectTimerState} from "./timer.selectors";
+import {selectSteps, selectTimerState} from "./timer.selectors";
 import {Step} from "./timer.model";
 
 @Injectable()
@@ -41,4 +41,15 @@ export class TimerEffects {
       setSelectedOption({option: action.step?.type || 'work', manuallyChanged: false})
     ])
   ));
+
+  changeRound$ = createEffect(() => this.actions$.pipe(
+    ofType(changeRound),
+    switchMap((action) => zip(this.store.select(selectSteps), of(action))),
+    map(([steps, action]) => {
+      return steps.filter(item => item.type === 'work')
+        .sort((a, b) => a.index > b.index ? 1 : -1)[action.round-1];
+    }),
+    filter(step => step != null),
+    map(step => setStep({step}))
+  ))
 }

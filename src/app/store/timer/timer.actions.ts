@@ -1,6 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Step} from "./timer.model";
-import {CurrentOption} from "../../main/card/timer/timer.service";
+import {CurrentOption, Step} from "./timer.model";
 
 // export const setCurrentStep = createAction(
 //   '[Timer] Set Current Step',
@@ -38,4 +37,9 @@ export const setSelectedOption = createAction(
 export const setCurrentStep = createAction(
   '[Timer] Set Current Step',
   props<{ currentStep: number }>()
+)
+
+export const changeRound = createAction(
+  '[Timer] Change Round',
+  props<{ round: number }>()
 )

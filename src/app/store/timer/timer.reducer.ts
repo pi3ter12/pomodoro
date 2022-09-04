@@ -1,9 +1,8 @@
 import {createReducer, on} from '@ngrx/store';
 
-import {TimerState} from './timer.model';
+import {CurrentOption, Step, TimerState} from './timer.model';
 import {setCurrentStep, setSelectedOption, setStep, start, stop} from "./timer.actions";
 import {environment} from "../../../environments/environment";
-import {CurrentOption, Step} from "../../main/card/timer/timer.service";
 
 
 const generateSteps = (rounds: number): Step[] => { // todo: move to utils

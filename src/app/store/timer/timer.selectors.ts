@@ -3,10 +3,6 @@ import {ControlPanelConf, FooterConf, TimerState} from "./timer.model";
 
 export const selectTimerState = createFeatureSelector<Readonly<TimerState>>('timer');
 
-export const selectCurrentStep = createSelector(
-  selectTimerState,
-  (timer) => timer.currentStep
-);
 export const selectCurrentOption = createSelector(
   selectTimerState,
   (timer) => timer.currentOption

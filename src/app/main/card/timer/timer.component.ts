@@ -1,27 +1,39 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {getTime} from "../../../store/timer/timer.selectors";
+import {ReplaySubject, takeUntil, tap} from "rxjs";
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
-export class TimerComponent implements OnChanges {
-  @Input() seconds: number = 0;
+export class TimerComponent implements OnInit, OnDestroy {
 
-  value: {minutes: string, seconds: string} = {
+  value: { minutes: string, seconds: string } = {
     minutes: '00',
     seconds: '00'
   }
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  constructor() { }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.prepareValue();
+  constructor(private store: Store) {
   }
 
-  private prepareValue(): void {
-    const minutes = Math.floor(this.seconds / 60);
-    const seconds = this.seconds - (minutes * 60);
+  ngOnInit() {
+    this.store.select(getTime).pipe(
+      tap((time) => this.prepareValue(time)),
+      takeUntil(this.destroyed$)
+    ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
+  private prepareValue(time: number): void {
+    const minutes = Math.floor(time / 60);
+    const seconds = time - (minutes * 60);
     this.value = {
       minutes: this.formatValue(minutes),
       seconds: this.formatValue(seconds)

@@ -67,6 +67,7 @@
           color: $textColor !important;
           background-color: $backgroundButtonMask;
         }
+
         &.is-selected {
           background-color: $textColor !important;
           @include colorTheme;

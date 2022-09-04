@@ -1,4 +1,4 @@
-<div class="footer">
-  <div>#{{step | stepToRound}}</div>
-  <div>{{'main.footer.' + currentOption | translate}}</div>
+<div class="footer" *ngIf="conf != null">
+  <div>#{{conf.currentStep | stepToRound}}</div>
+  <div>{{'main.footer.' + conf.currentOption | translate}}</div>
 </div>

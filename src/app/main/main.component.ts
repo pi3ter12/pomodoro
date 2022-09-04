@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CurrentOption, TimerService} from "./card/timer/timer.service";
-import {Subscription} from "rxjs";
+import {ReplaySubject, takeUntil, tap} from "rxjs";
+import {Store} from "@ngrx/store";
+import {selectCurrentOption} from "../store/timer/timer.selectors";
+import {CurrentOption} from "../store/timer/timer.model";
 
 @Component({
   selector: 'app-main',
@@ -8,22 +10,21 @@ import {Subscription} from "rxjs";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  selectedOption: CurrentOption = 'work';
-  private subscription: Subscription | undefined;
+  selectedOption: CurrentOption = 'work'
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  constructor(private timerService: TimerService) {
+  constructor(private store: Store) {
   }
 
-  ngOnInit(): void {
-    this.selectedOption = this.timerService.getSelectedOption();
-    this.subscription = this.timerService.onStateChange
-      .subscribe(({currentOption}) => this.selectedOption = currentOption)
+  ngOnInit() {
+    this.store.select(selectCurrentOption).pipe(
+      tap(option => this.selectedOption = option),
+      takeUntil(this.destroyed$)
+    ).subscribe()
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
-
 }

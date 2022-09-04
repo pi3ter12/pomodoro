@@ -1,11 +1,18 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TimerService} from "./timer/timer.service";
-import {Subscription} from "rxjs";
+import {filter, Subscription} from "rxjs";
 import {Howl, Howler} from 'howler';
 import {environment} from "../../../environments/environment";
 import {Store} from '@ngrx/store';
-import {changeOption, changeRound, setSelectedOption, start, stop} from "../../store/timer/timer.actions";
-import {selectTimerState} from "../../store/timer/timer.selectors";
+import {
+  changeAlarmState,
+  changeOption,
+  changeRound,
+  setSelectedOption,
+  start,
+  stop
+} from "../../store/timer/timer.actions";
+import {selectPlayAlarm, selectTimerState} from "../../store/timer/timer.selectors";
 import {CurrentOption, TimerState} from "../../store/timer/timer.model";
 
 @Component({
@@ -32,12 +39,9 @@ export class CardComponent implements OnInit, OnDestroy {
       .subscribe((state: TimerState) => this.handleStateUpdate(state));
 
     this.alarm = this.getSound();
-    this.onPlayAlarmSubscription = this.timerService.onPlayAlarm
+    this.onPlayAlarmSubscription = this.store.select(selectPlayAlarm)
+      .pipe(filter(isOn => isOn))
       .subscribe(() => this.playAlarm());
-
-    //todo: remove this
-    this.store.select(selectTimerState)
-      .subscribe((state) => console.log('stateChanged', state));
   }
 
   ngOnDestroy() {
@@ -89,6 +93,7 @@ export class CardComponent implements OnInit, OnDestroy {
       const id = this.alarm.play();
       setTimeout(() => {
         this.alarm?.stop(id)
+        this.store.dispatch(changeAlarmState({isOn: false}))
       }, environment.alarmTime * 1000)
     }
   }

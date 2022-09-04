@@ -1,10 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {filter, map, of, switchMap, tap, zip} from 'rxjs';
+import {filter, map, of, switchMap, take, tap, zip} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
-import {changeOption, changeRound, setCurrentStep, setSelectedOption, setStep} from "./timer.actions";
+import {
+  changeAlarmState,
+  changeOption,
+  changeRound,
+  decreaseTimeByOneSecond,
+  doTimerInterval,
+  setCurrentStep,
+  setSelectedOption,
+  setStep
+} from "./timer.actions";
 import {Store} from "@ngrx/store";
-import {selectSteps, selectTimerState} from "./timer.selectors";
+import {getTime, selectSteps, selectTimerState} from "./timer.selectors";
 import {Step} from "./timer.model";
 
 @Injectable()
@@ -17,7 +26,6 @@ export class TimerEffects {
 
   changeOption$ = createEffect(() => this.actions$.pipe(
     ofType(changeOption),
-    tap(() => console.log('changeOption$')),
     switchMap((action) => zip(this.store.select(selectTimerState), of(action))),
     map(([state, action]): Step | undefined => {
       const prevOrNextStep = (action.next) ? state.currentStep + 1 : state.currentStep - 1;
@@ -35,7 +43,6 @@ export class TimerEffects {
   setStep$ = createEffect(() => this.actions$.pipe(
     ofType(setStep),
     filter((step) => step != null),
-    tap(() => console.log('setStep$')),
     switchMap((action) => [
       setCurrentStep({currentStep: action.step?.index || 0}),
       setSelectedOption({option: action.step?.type || 'work', manuallyChanged: false})
@@ -51,5 +58,20 @@ export class TimerEffects {
     }),
     filter(step => step != null),
     map(step => setStep({step}))
+  ))
+
+  doTimerInterval$ = createEffect(() => this.actions$.pipe(
+    ofType(doTimerInterval),
+    switchMap(() => this.store.select(getTime).pipe(take(1))),
+    switchMap((time) => {
+      if (time > 0) {
+        return [decreaseTimeByOneSecond()];
+      } else {
+        return [
+          changeOption({next: true}),
+          changeAlarmState({isOn: true})
+        ];
+      }
+    })
   ))
 }

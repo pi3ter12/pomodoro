@@ -14,12 +14,12 @@ export const stop = createAction(
   '[Timer] Stop'
 );
 
+export const doTimerInterval = createAction(
+  '[Timer] Do Timer Interval'
+);
+
 export const decreaseTimeByOneSecond = createAction(
   '[Timer] Decrease Time By One Second'
-)
-export const manuallyChangeOption = createAction(
-  '[Timer] Manually Change Option',
-  props<{ next: boolean }>()
 )
 export const changeOption = createAction(
   '[Timer] Change Option',
@@ -42,4 +42,9 @@ export const setCurrentStep = createAction(
 export const changeRound = createAction(
   '[Timer] Change Round',
   props<{ round: number }>()
+)
+
+export const changeAlarmState = createAction(
+  '[Timer] Change Alarm State',
+  props<{ isOn: boolean }>()
 )

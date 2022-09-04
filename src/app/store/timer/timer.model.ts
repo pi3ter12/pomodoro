@@ -10,6 +10,7 @@ export interface TimerState {
   rounds: number
   currentStep: number;
   steps: Step[];
+  playAlarm: boolean;
 }
 
 export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';

@@ -1,7 +1,15 @@
 import {createReducer, on} from '@ngrx/store';
 
 import {CurrentOption, Step, TimerState} from './timer.model';
-import {setCurrentStep, setSelectedOption, setStep, start, stop} from "./timer.actions";
+import {
+  changeAlarmState,
+  decreaseTimeByOneSecond,
+  setCurrentStep,
+  setSelectedOption,
+  setStep,
+  start,
+  stop
+} from "./timer.actions";
 import {environment} from "../../../environments/environment";
 
 
@@ -61,6 +69,7 @@ export const initialState: Readonly<TimerState> = {
   rounds: environment.timerConf.rounds,
   currentStep: 0,
   steps: generateSteps(environment.timerConf.rounds),
+  playAlarm: false
 };
 
 export const timerReducer = createReducer(
@@ -69,6 +78,14 @@ export const timerReducer = createReducer(
   on(start, (state) => ({...state, working: true})),
   on(stop, (state) => ({...state, working: false})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
+  on(decreaseTimeByOneSecond, (state) => ({
+    ...state,
+    time: (state.time > 0) ? state.time - 1 : 0
+  })),
+  on(changeAlarmState, (state, {isOn}) => ({
+    ...state,
+    playAlarm: isOn
+  })),
   on(setSelectedOption, (state, {option, manuallyChanged}) => {
     let newCurrentStep = state.currentStep;
     if (manuallyChanged) {

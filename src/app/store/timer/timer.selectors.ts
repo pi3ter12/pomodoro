@@ -27,3 +27,7 @@ export const getTime = createSelector(
   selectTimerState,
   (timer) => timer.time
 )
+export const selectPlayAlarm = createSelector(
+  selectTimerState,
+  (timer) => timer.playAlarm
+)

@@ -1,6 +1,16 @@
 <button
   class="button"
   (click)="handleClick()"
-  [ngClass]="{'is-selected': isSelected}">
+  [ngClass]="{
+    'is-selected': isSelected,
+    'is-not-selected': !isSelected,
+    'theme-option': buttonType === 'option',
+    'theme-round': buttonType === 'round',
+    'theme-control': buttonType === 'control',
+    'theme-nav': buttonType === 'nav',
+    'work': (currentOption | async) === 'work',
+    'longBreak': (currentOption | async) === 'longBreak',
+    'shortBreak': (currentOption | async) === 'shortBreak'
+  }">
   {{text | translate}}
 </button>

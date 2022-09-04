@@ -4,39 +4,17 @@
 .control-panel {
   position: relative;
 
-  .control-button {
-    height: 4rem;
-    min-width: 50%;
-    border: 0;
-    @include default-font;
-    color: $background;
-    font-size: 2rem;
-    line-height: 3rem;
-    padding: 0.5rem;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
+  .next-button,
+  .prev-button {
+    position: absolute;
+  }
 
-    &.next-button,
-    &.prev-button {
-      background: transparent;
-      color: $textColor;
-      position: absolute;
-      padding-top: 0;
-      line-height: 3rem;
-      font-size: 4rem;
-      min-width: unset;
-    }
+  .next-button {
+    right: 1rem;
+  }
 
-    &.next-button {
-      right: 1rem;
-    }
-
-    &.prev-button {
-      left: 1rem;
-    }
-
-    @include colorTheme;
+  .prev-button {
+    left: 1rem;
   }
 
   .rounds {
@@ -52,27 +30,6 @@
     .rounds-buttons {
       display: flex;
       margin: auto;
-
-      .rounds-button {
-        border: 0;
-        @include default-font;
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-        font-weight: bold;
-        margin: .5rem;
-        border-radius: 4px;
-        cursor: pointer;
-
-        &.is-not-selected {
-          color: $textColor !important;
-          background-color: $backgroundButtonMask;
-        }
-
-        &.is-selected {
-          background-color: $textColor !important;
-          @include colorTheme;
-        }
-      }
     }
   }
 }

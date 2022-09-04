@@ -1,16 +1,64 @@
 @import "../../../shared/styles/colors";
+@import "../../../shared/styles/fonts";
 
-.button {
-  color: $textColor;
+@mixin defaultButton {
+  cursor: pointer;
+  border-radius: 4px;
   border: 0;
-  border-radius: 3px;
+  @include default-font;
+}
+
+.button.theme-option {
+  @include defaultButton;
+  color: $textColor;
   height: 2rem;
   line-height: 2rem;
   width: 100%;
-  cursor: pointer;
   background-color: transparent;
 
   &.is-selected {
     background-color: $backgroundButtonMask;
   }
+}
+
+.button.theme-round {
+  @include defaultButton;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  margin: .5rem;
+
+  &.is-not-selected {
+    color: $textColor !important;
+    background-color: $backgroundButtonMask;
+  }
+
+  &.is-selected {
+    background-color: $textColor !important;
+    @include colorTheme;
+  }
+}
+
+.button.theme-control {
+  @include defaultButton;
+  height: 4rem;
+  min-width: 50%;
+  color: $background;
+  font-size: 2rem;
+  line-height: 3rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  @include colorTheme;
+}
+
+.button.theme-nav {
+  @include defaultButton;
+  height: 3rem;
+  font-weight: bold;
+  background: transparent;
+  padding-top: 0;
+  line-height: 3rem;
+  font-size: 4rem;
+  min-width: unset;
+  color: $textColor;
 }

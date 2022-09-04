@@ -1,16 +1,19 @@
 <div class="card-container">
   <div class="timer-options">
     <app-button
+      [buttonType]="'option'"
       [text]="'main.options.work'"
       (isClicked)="handleOptionChange('work')"
       [isSelected]="currentOption === 'work'">
     </app-button>
     <app-button
+      [buttonType]="'option'"
       [text]="'main.options.shortBreak'"
       (isClicked)="handleOptionChange('shortBreak')"
       [isSelected]="currentOption === 'shortBreak'">
     </app-button>
     <app-button
+      [buttonType]="'option'"
       [text]="'main.options.longBreak'"
       (isClicked)="handleOptionChange('longBreak')"
       [isSelected]="currentOption === 'longBreak'">

@@ -5,8 +5,9 @@ export interface TimerState {
     shortBreak: number;
   },
   currentOption: CurrentOption;
+  baseTime: number;
   time: number;
-  lastTimeCheck: Date | undefined,
+  timerStartTime: Date | undefined,
   working: boolean;
   rounds: number
   currentStep: number;

@@ -20,8 +20,9 @@ export const initialState: Readonly<TimerState> = {
     longBreak: environment.timerConf.longBreak,
     shortBreak: environment.timerConf.shortBreak
   },
+  baseTime: environment.timerConf.work,
   time: environment.timerConf.work,
-  lastTimeCheck: undefined,
+  timerStartTime: undefined,
   currentOption: "work",
   working: false,
   rounds: environment.timerConf.rounds,
@@ -33,24 +34,22 @@ export const initialState: Readonly<TimerState> = {
 export const timerReducer = createReducer(
   initialState,
   on(setCurrentStep, (state, {currentStep}) => ({...state, currentStep: currentStep})),
-  on(start, (state) => ({...state, working: true, lastTimeCheck: new Date()})),
-  on(stop, (state) => ({...state, working: false, lastTimeCheck: undefined})),
+  on(start, (state) => ({...state, working: true, timerStartTime: new Date()})),
+  on(stop, (state) => ({...state, working: false, timerStartTime: undefined, baseTime: state.time})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
   on(decreaseTime, (state) => {
     const now = new Date();
-    let diff, newTime, lastTimeCheck;
-    if (state.lastTimeCheck != null) {
-      diff = TimerUtil.diffInSeconds(now, state.lastTimeCheck);
-      newTime = (state.time > 0) ? ((diff > 0) ? state.time - diff : state.time) : 0;
-      lastTimeCheck = (diff > 0) ? now : state.lastTimeCheck;
+    let diff, newTime;
+    if (state.timerStartTime != null) {
+      diff = TimerUtil.diffInSeconds(now, state.timerStartTime);
+      newTime = (state.time > 0) ? ((diff > 0) ? state.baseTime - diff : state.time) : 0;
     } else {
       newTime = state.time;
-      lastTimeCheck = now;
     }
     return {
       ...state,
       time: newTime,
-      lastTimeCheck: lastTimeCheck
+      lastTimeCheck: state.timerStartTime != null ? state.timerStartTime : new Date()
     }
   }),
   on(changeAlarmState, (state, {isOn}) => ({
@@ -60,7 +59,9 @@ export const timerReducer = createReducer(
   on(loadState, (state, {newState}) => ({
     ...state,
     ...newState,
-    lastTimeCheck: undefined
+    baseTime: newState.time,
+    lastTimeCheck: undefined,
+    working: false
   })),
   on(setSelectedOption, (state, {option, manuallyChanged}) => {
     let newCurrentStep = state.currentStep;
@@ -71,7 +72,9 @@ export const timerReducer = createReducer(
       ...state,
       currentOption: option,
       currentStep: newCurrentStep,
-      time: TimerUtil.getTimeByOption(option, state)
+      baseTime: TimerUtil.getTimeByOption(option, state),
+      time: TimerUtil.getTimeByOption(option, state),
+      timerStartTime: new Date()
     }
   })
 );

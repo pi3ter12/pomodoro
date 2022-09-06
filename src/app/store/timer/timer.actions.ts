@@ -13,8 +13,8 @@ export const doTimerInterval = createAction(
   '[Timer] Do Timer Interval'
 );
 
-export const decreaseTimeByOneSecond = createAction(
-  '[Timer] Decrease Time By One Second'
+export const decreaseTime = createAction(
+  '[Timer] Decrease Time'
 )
 export const changeOption = createAction(
   '[Timer] Change Option',

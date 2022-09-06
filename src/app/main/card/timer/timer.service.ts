@@ -3,6 +3,7 @@ import {interval, Subscription, tap} from "rxjs";
 import {Store} from '@ngrx/store';
 import {getWorkingValue} from "../../../store/timer/timer.selectors";
 import {doTimerInterval} from "../../../store/timer/timer.actions";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class TimerService {
 
   private startSubscription(): void {
     this.stopSubscription();
-    this.intervalSubscription = interval(1000).pipe(
+    this.intervalSubscription = interval(environment.timeCheckInterval).pipe(
       tap(() => this.store.dispatch(doTimerInterval()))
     ).subscribe();
   }

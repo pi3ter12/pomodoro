@@ -5,7 +5,7 @@ import {
   changeAlarmState,
   changeOption,
   changeRound,
-  decreaseTimeByOneSecond,
+  decreaseTime,
   doTimerInterval,
   setCurrentStep,
   setSelectedOption,
@@ -64,7 +64,7 @@ export class TimerEffects {
     switchMap(() => this.store.select(getTime).pipe(take(1))),
     switchMap((time) => {
       if (time > 0) {
-        return [decreaseTimeByOneSecond()];
+        return [decreaseTime()];
       } else {
         return [
           changeOption({next: true}),

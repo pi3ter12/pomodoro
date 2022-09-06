@@ -44,4 +44,9 @@ export class TimerUtil {
     const find = prepareResultList.find(item => item.option === option);
     return (find == null) ? 0 : find.time;
   }
+
+  static diffInSeconds = (date1: Date, date2: Date): number => {
+    const diff = Math.abs(date1.getTime() - date2.getTime());
+    return Math.floor(diff / 1000);
+  }
 }

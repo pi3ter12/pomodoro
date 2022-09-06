@@ -7,4 +7,5 @@ export const environmentCommon = {
   },
   alarmTime: 5,
   saveInLocalStorage: true,
+  timeCheckInterval: 250
 }

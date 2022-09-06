@@ -6,6 +6,7 @@ export interface TimerState {
   },
   currentOption: CurrentOption;
   time: number;
+  lastTimeCheck: Date | undefined,
   working: boolean;
   rounds: number
   currentStep: number;

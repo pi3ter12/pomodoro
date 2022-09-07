@@ -14,9 +14,11 @@ export interface TimerState {
   steps: Step[];
   playAlarm: boolean;
   openSettings: boolean;
+  theme: Theme,
 }
 
 export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';
+export type Theme = 'settings' | CurrentOption;
 
 export interface Step {
   index: number;

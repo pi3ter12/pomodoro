@@ -8,6 +8,7 @@ $borderColor: #978888;
 $workBackground: $background;
 $shortBreakBackground: rgb(60, 101, 150);
 $longBreakBackground: #4d6c63;
+$settingsTheme: #b1a013;
 
 $whiteIconFilter: invert(95%) sepia(100%) saturate(20%) hue-rotate(1deg) brightness(105%) contrast(106%);
 
@@ -21,6 +22,9 @@ $whiteIconFilter: invert(95%) sepia(100%) saturate(20%) hue-rotate(1deg) brightn
   &.longBreak {
     background-color: $longBreakBackground;
   }
+  &.settings {
+    background-color: $settingsTheme;
+  }
 }
 
 @mixin colorTheme {
@@ -32,5 +36,8 @@ $whiteIconFilter: invert(95%) sepia(100%) saturate(20%) hue-rotate(1deg) brightn
   }
   &.longBreak {
     color: $longBreakBackground;
+  }
+  &.settings {
+    color: $settingsTheme;
   }
 }

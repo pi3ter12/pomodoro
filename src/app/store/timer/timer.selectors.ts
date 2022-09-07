@@ -8,6 +8,11 @@ export const selectCurrentOption = createSelector(
   (timer) => timer.currentOption
 );
 
+export const selectTheme = createSelector(
+  selectTimerState,
+  (timer) => timer.theme
+);
+
 export const selectSteps = createSelector(
   selectTimerState,
   (timer) => timer.steps

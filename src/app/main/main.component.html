@@ -1,9 +1,11 @@
-<div class="main-container" [ngClass]="selectedOption">
+<div class="main-container" [ngClass]="currentTheme">
   <div class="nav">
     <app-nav></app-nav>
   </div>
   <div class="card-container">
     <div>
+<!--      <app-card *ngIf="!(isSettingModalOpen | async)"></app-card>-->
+<!--      <app-settings *ngIf="(isSettingModalOpen | async)"></app-settings>-->
       <app-card></app-card>
       <app-settings></app-settings>
     </div>

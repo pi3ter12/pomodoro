@@ -29,7 +29,8 @@ export const initialState: Readonly<TimerState> = {
   currentStep: 0,
   steps: TimerUtil.generateSteps(environment.timerConf.rounds),
   playAlarm: false,
-  openSettings: false
+  openSettings: false,
+  theme: 'work'
 };
 
 export const timerReducer = createReducer(
@@ -38,8 +39,8 @@ export const timerReducer = createReducer(
   on(start, (state) => ({...state, working: true, timerStartTime: new Date()})),
   on(stop, (state) => ({...state, working: false, timerStartTime: undefined, baseTime: state.time})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
-  on(openSettings, (state) => ({...state, openSettings: true})),
-  on(closeSettings, (state) => ({...state, openSettings: false})),
+  on(openSettings, (state) => ({...state, openSettings: true, theme: 'settings'})),
+  on(closeSettings, (state) => ({...state, openSettings: false, theme: state.currentOption})),
   on(decreaseTime, (state) => {
     const now = new Date();
     let diff, newTime;
@@ -74,6 +75,7 @@ export const timerReducer = createReducer(
     return {
       ...state,
       currentOption: option,
+      theme: state.openSettings ? 'settings' : option,
       currentStep: newCurrentStep,
       baseTime: TimerUtil.getTimeByOption(option, state),
       time: TimerUtil.getTimeByOption(option, state),

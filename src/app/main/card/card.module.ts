@@ -8,7 +8,9 @@ import {ControlPanelComponent} from './control-panel/control-panel.component';
 import {FooterComponent} from './footer/footer.component';
 import {NumberToListPipe} from './control-panel/pipe/number-to-list.pipe';
 import {StepToRoundPipe} from './pipe/step-to-round.pipe';
-import { BellComponent } from './bell/bell.component';
+import {BellComponent} from './bell/bell.component';
+import { SettingsButtonComponent } from './settings-button/settings-button.component';
+import {SettingsModule} from "../../settings/settings.module";
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { BellComponent } from './bell/bell.component';
     FooterComponent,
     NumberToListPipe,
     StepToRoundPipe,
-    BellComponent
+    BellComponent,
+    SettingsButtonComponent
   ],
   imports: [
     CommonModule,

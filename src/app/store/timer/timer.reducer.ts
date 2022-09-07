@@ -2,9 +2,9 @@ import {createReducer, on} from '@ngrx/store';
 
 import {TimerState} from './timer.model';
 import {
-  changeAlarmState,
+  changeAlarmState, closeSettings,
   decreaseTime,
-  loadState,
+  loadState, openSettings,
   setCurrentStep,
   setSelectedOption,
   setStep,
@@ -28,7 +28,8 @@ export const initialState: Readonly<TimerState> = {
   rounds: environment.timerConf.rounds,
   currentStep: 0,
   steps: TimerUtil.generateSteps(environment.timerConf.rounds),
-  playAlarm: false
+  playAlarm: false,
+  openSettings: false
 };
 
 export const timerReducer = createReducer(
@@ -37,6 +38,8 @@ export const timerReducer = createReducer(
   on(start, (state) => ({...state, working: true, timerStartTime: new Date()})),
   on(stop, (state) => ({...state, working: false, timerStartTime: undefined, baseTime: state.time})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
+  on(openSettings, (state) => ({...state, openSettings: true})),
+  on(closeSettings, (state) => ({...state, openSettings: false})),
   on(decreaseTime, (state) => {
     const now = new Date();
     let diff, newTime;

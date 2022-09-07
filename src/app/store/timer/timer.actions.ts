@@ -48,3 +48,11 @@ export const loadState = createAction(
   '[Timer] LoadState',
   props<{ newState: TimerState }>()
 )
+
+export const openSettings = createAction(
+  '[Settings] Open',
+)
+
+export const closeSettings = createAction(
+  '[Settings] Close',
+)

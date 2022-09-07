@@ -42,3 +42,8 @@ export const selectFooterConf = createSelector(
     currentOption: timer.currentOption,
   })
 )
+
+export const selectSettingModalOpen = createSelector(
+  selectTimerState,
+  (timer) => timer.openSettings
+)

@@ -1,0 +1,9 @@
+@import "../../../shared/styles/colors";
+
+.setting-button-container {
+  & > img {
+    width: 1.5rem;
+    filter: $whiteIconFilter;
+  }
+  cursor: pointer;
+}

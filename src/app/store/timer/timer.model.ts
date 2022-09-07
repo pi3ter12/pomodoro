@@ -13,6 +13,7 @@ export interface TimerState {
   currentStep: number;
   steps: Step[];
   playAlarm: boolean;
+  openSettings: boolean;
 }
 
 export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';

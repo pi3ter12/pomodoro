@@ -29,7 +29,7 @@ export const initialState: Readonly<TimerState> = {
   currentStep: 0,
   steps: TimerUtil.generateSteps(environment.timerConf.rounds),
   playAlarm: false,
-  openSettings: true,
+  openSettings: false,
   theme: 'work'
 };
 

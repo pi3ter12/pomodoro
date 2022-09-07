@@ -1,3 +1,13 @@
-<div class="settings-container" *ngIf="(isModalOpen | async)">
-  Settings
-</div>
+<app-card>
+  <div class="settings-container" *ngIf="(isModalOpen | async)">
+    <div class="close-button" (click)="handleCloseButton()">
+      <img alt="close" src="assets/images/close.png">
+    </div>
+    <div class="title">
+      {{'settings.title' | translate}}
+    </div>
+    <div class="settings-content">
+      Settings
+    </div>
+  </div>
+</app-card>

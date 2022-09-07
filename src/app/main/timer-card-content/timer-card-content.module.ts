@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CardComponent} from './card.component';
+import {TimerCardContentComponent} from './timer-card-content.component';
 import {SharedModule} from "../../shared/shared.module";
 import {TimerComponent} from './timer/timer.component';
 import {ControlPanelComponent} from './control-panel/control-panel.component';
@@ -10,11 +10,12 @@ import {StepToRoundPipe} from './pipe/step-to-round.pipe';
 import {BellComponent} from './bell/bell.component';
 import {SettingsButtonComponent} from './settings-button/settings-button.component';
 import {ButtonModule} from "../../shared/components/button/button.module";
+import {CardModule} from "../../shared/components/card/card.module";
 
 
 @NgModule({
   declarations: [
-    CardComponent,
+    TimerCardContentComponent,
     TimerComponent,
     ControlPanelComponent,
     FooterComponent,
@@ -26,11 +27,12 @@ import {ButtonModule} from "../../shared/components/button/button.module";
   imports: [
     CommonModule,
     SharedModule,
-    ButtonModule
+    ButtonModule,
+    CardModule
   ],
   exports: [
-    CardComponent
+    TimerCardContentComponent
   ]
 })
-export class CardModule {
+export class TimerCardContentModule {
 }

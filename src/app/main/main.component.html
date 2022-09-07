@@ -4,10 +4,8 @@
   </div>
   <div class="card-container">
     <div>
-<!--      <app-card *ngIf="!(isSettingModalOpen | async)"></app-card>-->
-<!--      <app-settings *ngIf="(isSettingModalOpen | async)"></app-settings>-->
-      <app-card></app-card>
-      <app-settings></app-settings>
+      <app-timer-card-content *ngIf="!(isSettingModalOpen | async)"></app-timer-card-content>
+      <app-settings *ngIf="(isSettingModalOpen | async)"></app-settings>
     </div>
   </div>
 </div>

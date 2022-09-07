@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ReplaySubject, takeUntil} from "rxjs";
 import {selectSettingModalOpen} from "../store/timer/timer.selectors";
+import {closeSettings} from "../store/timer/timer.actions";
 
 @Component({
   selector: 'app-settings',
@@ -13,4 +14,7 @@ export class SettingsComponent {
 
   constructor(private store: Store) { }
 
+  handleCloseButton(): void {
+    this.store.dispatch(closeSettings());
+  }
 }

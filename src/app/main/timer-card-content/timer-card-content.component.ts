@@ -9,11 +9,11 @@ import {selectCurrentOption, selectPlayAlarm} from "../../store/timer/timer.sele
 import {CurrentOption} from "../../store/timer/timer.model";
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  selector: 'app-timer-card-content',
+  templateUrl: './timer-card-content.component.html',
+  styleUrls: ['./timer-card-content.component.scss']
 })
-export class CardComponent implements OnInit, OnDestroy {
+export class TimerCardContentComponent implements OnInit, OnDestroy {
   currentOption: CurrentOption = 'work';
   private alarm: Howl | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);

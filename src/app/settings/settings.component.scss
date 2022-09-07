@@ -21,7 +21,14 @@
     font-weight: bold;
   }
   .settings-content {
-    margin-top: 1rem;
+    margin-top: 2rem;
     padding-left: 1rem;
+    padding-right: 1rem;
+
+    .settings-content-buttons {
+      width: 100%;
+      text-align: right;
+      padding-bottom: 1rem;
+    }
   }
 }

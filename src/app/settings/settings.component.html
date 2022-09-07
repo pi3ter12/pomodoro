@@ -7,7 +7,14 @@
       {{'settings.title' | translate}}
     </div>
     <div class="settings-content">
-      Settings
+      <app-input label="settings.labels.workTime" [type]="'number'"></app-input>
+      <app-input label="settings.labels.breakTime" [type]="'number'"></app-input>
+      <app-input label="settings.labels.longBreakTime" [type]="'number'"></app-input>
+      <app-input label="settings.labels.rounds" [type]="'number'"></app-input>
+      <app-input label="settings.labels.alarmTime" [type]="'number'"></app-input>
+      <div class="settings-content-buttons">
+        <app-button [buttonType]="'normal'" [text]="'settings.save'" class="save-button"></app-button>
+      </div>
     </div>
   </div>
 </app-card>

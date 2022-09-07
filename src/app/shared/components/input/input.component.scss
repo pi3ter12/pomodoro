@@ -1,0 +1,50 @@
+@import "../../styles/colors";
+@import "../../styles/fonts";
+@import "../../styles/variable";
+
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .label {
+    width: 150px;
+    line-height: 2rem;
+  }
+
+  .input {
+    flex-grow: 1;
+    display: flex;
+
+    & > input {
+      @include default-font();
+      flex-grow: 1;
+      background-color: $backgroundButtonMask;
+      border: 0;
+      height: 2rem;
+      font-size: 1rem;
+      line-height: 2rem;
+      border-radius: $borderRadius;
+      outline: 0;
+      padding-left: .5rem;
+      padding-right: .5rem;
+
+
+      &:focus {
+        outline: none !important;
+      }
+
+      /* Chrome, Safari, Edge, Opera */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      &[type=number] {
+        -moz-appearance: textfield;
+      }
+    }
+  }
+}

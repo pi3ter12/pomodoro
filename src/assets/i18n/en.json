@@ -21,6 +21,14 @@
     }
   },
   "settings": {
-    "title": "Settings"
+    "title": "Settings",
+    "save": "Save",
+    "labels": {
+      "workTime": "Work time",
+      "breakTime": "Break time",
+      "longBreakTime": "Long break time",
+      "rounds": "Rounds",
+      "alarmTime": "Alarm time"
+    }
   }
 }

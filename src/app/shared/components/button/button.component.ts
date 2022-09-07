@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {selectCurrentOption} from "../../../store/timer/timer.selectors";
+import {selectCurrentOption, selectTheme} from "../../../store/timer/timer.selectors";
 
 @Component({
   selector: 'app-button',
@@ -15,7 +15,7 @@ export class ButtonComponent {
 
   @Output() isClicked: EventEmitter<void> = new EventEmitter<void>();
 
-  currentOption = this.store.select(selectCurrentOption);
+  theme = this.store.select(selectTheme);
 
   constructor(private store: Store) {
   }
@@ -25,4 +25,4 @@ export class ButtonComponent {
   }
 }
 
-export type ButtonType = 'option' | 'round' | 'control' | 'nav';
+export type ButtonType = 'option' | 'round' | 'control' | 'nav' | 'normal';

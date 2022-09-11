@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {map, ReplaySubject, switchMap, take, tap} from "rxjs";
+import {map, take} from "rxjs";
 import {selectSettingModalOpen} from "../../../store/timer/timer.selectors";
 import {closeSettings, openSettings} from "../../../store/timer/timer.actions";
 
@@ -10,7 +10,8 @@ import {closeSettings, openSettings} from "../../../store/timer/timer.actions";
   styleUrls: ['./settings-button.component.scss']
 })
 export class SettingsButtonComponent {
-  constructor(private store: Store) { }
+  constructor(private store: Store) {
+  }
 
   handleSettingButtonClick(): void {
     this.store.select(selectSettingModalOpen).pipe(

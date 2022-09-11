@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ReplaySubject, takeUntil, tap} from "rxjs";
 import {Store} from "@ngrx/store";
-import {selectCurrentOption, selectSettingModalOpen, selectTheme} from "../store/timer/timer.selectors";
-import {CurrentOption, Theme} from "../store/timer/timer.model";
+import {selectSettingModalOpen, selectTheme} from "../store/timer/timer.selectors";
+import {Theme} from "../store/timer/timer.model";
 import {StateBackupService} from "../shared/service/state-backup.service";
 
 @Component({

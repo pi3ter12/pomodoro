@@ -2,9 +2,12 @@ import {createReducer, on} from '@ngrx/store';
 
 import {TimerState} from './timer.model';
 import {
-  changeAlarmState, closeSettings,
+  changeAlarmState,
+  closeSettings,
   decreaseTime,
-  loadState, openSettings, saveSettings,
+  loadState,
+  openSettings,
+  saveSettings,
   setCurrentStep,
   setSelectedOption,
   setStep,

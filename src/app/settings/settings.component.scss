@@ -3,16 +3,19 @@
 
 .settings-container {
   position: relative;
+
   .close-button {
     & > img {
       width: 1.5rem;
       filter: $whiteIconFilter;
     }
+
     cursor: pointer;
     position: absolute;
     top: 1rem;
     right: 1rem;
   }
+
   .title {
     @include default-font();
     font-size: 1.5rem;
@@ -20,6 +23,7 @@
     padding-top: .5rem;
     font-weight: bold;
   }
+
   .settings-content {
     margin-top: 2rem;
     padding-left: 1rem;

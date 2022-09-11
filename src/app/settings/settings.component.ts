@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ReplaySubject, takeUntil, tap} from "rxjs";
 import {selectSettingConf, selectSettingModalOpen} from "../store/timer/timer.selectors";
-import {closeSettings, saveSettings, stop} from "../store/timer/timer.actions";
+import {closeSettings, saveSettings} from "../store/timer/timer.actions";
 import {SettingsConf} from "../store/timer/timer.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 

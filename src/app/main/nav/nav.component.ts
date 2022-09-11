@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {selectCurrentOption, selectTheme} from "../../store/timer/timer.selectors";
+import {selectTheme} from "../../store/timer/timer.selectors";
 import {Store} from "@ngrx/store";
 import {ReplaySubject, takeUntil, tap} from "rxjs";
-import {CurrentOption, Theme} from "../../store/timer/timer.model";
+import {Theme} from "../../store/timer/timer.model";
 
 @Component({
   selector: 'app-nav',

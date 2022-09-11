@@ -6,7 +6,7 @@ import {
   changeOption,
   changeRound,
   decreaseTime,
-  doTimerInterval, saveSettings,
+  doTimerInterval,
   setCurrentStep,
   setSelectedOption,
   setStep

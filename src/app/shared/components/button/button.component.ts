@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {selectCurrentOption, selectTheme} from "../../../store/timer/timer.selectors";
+import {selectTheme} from "../../../store/timer/timer.selectors";
 
 @Component({
   selector: 'app-button',

@@ -51,6 +51,7 @@
   font-weight: bold;
   @include colorTheme;
 }
+
 .button.theme-normal {
   @include defaultButton;
   height: 2rem;

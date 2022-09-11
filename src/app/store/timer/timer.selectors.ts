@@ -30,6 +30,10 @@ export const selectPlayAlarm = createSelector(
   selectTimerState,
   (timer) => timer.playAlarm
 )
+export const selectAlarmTime = createSelector(
+  selectTimerState,
+  (timer) => timer.alarmTime
+)
 
 export const selectControlPanelConf = createSelector(
   selectTimerState,
@@ -49,7 +53,7 @@ export const selectFooterConf = createSelector(
 )
 export const selectSettingConf = createSelector(
   selectTimerState,
-  ({conf, rounds}): SettingsConf => ({conf, rounds})
+  ({conf, rounds, alarmTime}): SettingsConf => ({conf, rounds, alarmTime})
 )
 
 export const selectSettingModalOpen = createSelector(

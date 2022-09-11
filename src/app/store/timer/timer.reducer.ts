@@ -30,7 +30,8 @@ export const initialState: Readonly<TimerState> = {
   steps: TimerUtil.generateSteps(environment.timerConf.rounds),
   playAlarm: false,
   openSettings: false,
-  theme: 'work'
+  theme: 'work',
+  alarmTime: environment.alarmTime
 };
 
 export const timerReducer = createReducer(
@@ -58,6 +59,7 @@ export const timerReducer = createReducer(
     openSettings: false,
     steps: TimerUtil.generateSteps(newState.rounds),
     baseTime: newState.conf.work,
+    alarmTime: newState.alarmTime
   })),
   on(decreaseTime, (state) => {
     const now = new Date();

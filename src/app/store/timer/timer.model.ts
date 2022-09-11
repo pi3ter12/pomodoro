@@ -15,6 +15,7 @@ export interface TimerState {
   playAlarm: boolean;
   openSettings: boolean;
   theme: Theme,
+  alarmTime: number
 }
 
 export type CurrentOption = 'work' | 'longBreak' | 'shortBreak';
@@ -45,5 +46,5 @@ export interface SettingsConf {
     shortBreak: number;
   },
   rounds: number;
-  //todo: alarm time
+  alarmTime: number;
 }

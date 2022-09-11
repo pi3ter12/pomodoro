@@ -18,22 +18,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
     workTime: new FormControl(0,
       Validators.compose([
         Validators.required,
-        Validators.min(100),
-        Validators.max(6000)
+        Validators.min(0),
+        Validators.max(3600)
       ])
     ),
     breakTime: new FormControl(0,
       Validators.compose([
         Validators.required,
-        Validators.min(100),
-        Validators.max(6000)
+        Validators.min(0),
+        Validators.max(3600)
       ])
     ),
     longBreakTime: new FormControl(0,
       Validators.compose([
         Validators.required,
-        Validators.min(100),
-        Validators.max(6000)
+        Validators.min(0),
+        Validators.max(3600)
       ])
     ),
     rounds: new FormControl(0,
@@ -41,6 +41,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.min(2),
         Validators.max(10)
+      ])
+    ),
+    alarmTime: new FormControl(0,
+      Validators.compose([
+        Validators.required,
+        Validators.min(1),
+        Validators.max(50)
       ])
     ),
   })
@@ -53,6 +60,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     {key: 'breakTime', getValue: () => this.settingsConf?.conf.shortBreak || 0},
     {key: 'longBreakTime', getValue: () => this.settingsConf?.conf.longBreak || 0},
     {key: 'rounds', getValue: () => this.settingsConf?.rounds || 0},
+    {key: 'alarmTime', getValue: () => this.settingsConf?.alarmTime || 0},
   ]
 
   constructor(private store: Store) {
@@ -83,7 +91,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
           shortBreak: this.formGroup.get('breakTime')?.value,
           longBreak: this.formGroup.get('longBreakTime')?.value
         },
-        rounds: this.formGroup.get('rounds')?.value
+        rounds: this.formGroup.get('rounds')?.value,
+        alarmTime: this.formGroup.get('alarmTime')?.value
       });
     } else {
       console.log('form is not valid');

@@ -1,0 +1,8 @@
+<div class="input-container" *ngIf="control != null">
+  <div class="label">
+    {{label | translate}}
+  </div>
+  <div class="input" [ngClass]="{'invalid' : !control.valid}">
+    <input type="number" [formControl]="control"/>
+  </div>
+</div>

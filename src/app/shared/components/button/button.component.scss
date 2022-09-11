@@ -1,9 +1,10 @@
-@import "../../../shared/styles/colors";
-@import "../../../shared/styles/fonts";
+@import "src/app/shared/styles/colors";
+@import "src/app/shared/styles/fonts";
+@import "src/app/shared/styles/variable";
 
 @mixin defaultButton {
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: $borderRadius;
   border: 0;
   @include default-font;
 }
@@ -46,6 +47,17 @@
   color: $background;
   font-size: 2rem;
   line-height: 3rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  @include colorTheme;
+}
+
+.button.theme-normal {
+  @include defaultButton;
+  height: 2rem;
+  color: $background;
+  font-size: 1rem;
+  line-height: 1rem;
   padding: 0.5rem;
   font-weight: bold;
   @include colorTheme;

@@ -4,7 +4,8 @@ import {CommonModule} from '@angular/common';
 import {MainRoutingModule} from './main-routing.module';
 import {MainComponent} from './main.component';
 import {NavModule} from "./nav/nav.module";
-import {CardModule} from "./card/card.module";
+import {TimerCardContentModule} from "./timer-card-content/timer-card-content.module";
+import {SettingsModule} from "../settings/settings.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {CardModule} from "./card/card.module";
     CommonModule,
     MainRoutingModule,
     NavModule,
-    CardModule
+    TimerCardContentModule,
+    SettingsModule
   ]
 })
 export class MainModule {

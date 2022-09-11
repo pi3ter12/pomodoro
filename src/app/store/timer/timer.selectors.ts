@@ -1,11 +1,16 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {ControlPanelConf, FooterConf, TimerState} from "./timer.model";
+import {ControlPanelConf, FooterConf, SettingsConf, TimerState} from "./timer.model";
 
 export const selectTimerState = createFeatureSelector<Readonly<TimerState>>('timer');
 
 export const selectCurrentOption = createSelector(
   selectTimerState,
   (timer) => timer.currentOption
+);
+
+export const selectTheme = createSelector(
+  selectTimerState,
+  (timer) => timer.theme
 );
 
 export const selectSteps = createSelector(
@@ -25,6 +30,10 @@ export const selectPlayAlarm = createSelector(
   selectTimerState,
   (timer) => timer.playAlarm
 )
+export const selectAlarmTime = createSelector(
+  selectTimerState,
+  (timer) => timer.alarmTime
+)
 
 export const selectControlPanelConf = createSelector(
   selectTimerState,
@@ -41,4 +50,13 @@ export const selectFooterConf = createSelector(
     currentStep: timer.currentStep,
     currentOption: timer.currentOption,
   })
+)
+export const selectSettingConf = createSelector(
+  selectTimerState,
+  ({conf, rounds, alarmTime}): SettingsConf => ({conf, rounds, alarmTime})
+)
+
+export const selectSettingModalOpen = createSelector(
+  selectTimerState,
+  (timer) => timer.openSettings
 )

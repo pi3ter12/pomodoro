@@ -3,8 +3,11 @@ import {createReducer, on} from '@ngrx/store';
 import {TimerState} from './timer.model';
 import {
   changeAlarmState,
+  closeSettings,
   decreaseTime,
   loadState,
+  openSettings,
+  saveSettings,
   setCurrentStep,
   setSelectedOption,
   setStep,
@@ -28,15 +31,39 @@ export const initialState: Readonly<TimerState> = {
   rounds: environment.timerConf.rounds,
   currentStep: 0,
   steps: TimerUtil.generateSteps(environment.timerConf.rounds),
-  playAlarm: false
+  playAlarm: false,
+  openSettings: false,
+  theme: 'work',
+  alarmTime: environment.alarmTime
 };
 
 export const timerReducer = createReducer(
-  initialState,
+  {...initialState},
   on(setCurrentStep, (state, {currentStep}) => ({...state, currentStep: currentStep})),
   on(start, (state) => ({...state, working: true, timerStartTime: new Date()})),
   on(stop, (state) => ({...state, working: false, timerStartTime: undefined, baseTime: state.time})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
+  on(openSettings, (state) => ({...state, openSettings: true, theme: 'settings', working: false})),
+  on(closeSettings, (state) => ({...state, openSettings: false, theme: state.currentOption})),
+  on(saveSettings, (state, {newState}) => ({
+    ...state,
+    conf: {
+      work: newState.conf.work,
+      shortBreak: newState.conf.shortBreak,
+      longBreak: newState.conf.longBreak
+    },
+    time: newState.conf.work,
+    working: false,
+    timerStartTime: undefined,
+    currentStep: 0,
+    currentOption: 'work',
+    theme: 'work',
+    rounds: newState.rounds,
+    openSettings: false,
+    steps: TimerUtil.generateSteps(newState.rounds),
+    baseTime: newState.conf.work,
+    alarmTime: newState.alarmTime
+  })),
   on(decreaseTime, (state) => {
     const now = new Date();
     let diff, newTime;
@@ -61,7 +88,8 @@ export const timerReducer = createReducer(
     ...newState,
     baseTime: newState.time,
     lastTimeCheck: undefined,
-    working: false
+    working: false,
+    openSettings: false
   })),
   on(setSelectedOption, (state, {option, manuallyChanged}) => {
     let newCurrentStep = state.currentStep;
@@ -71,6 +99,7 @@ export const timerReducer = createReducer(
     return {
       ...state,
       currentOption: option,
+      theme: state.openSettings ? 'settings' : option,
       currentStep: newCurrentStep,
       baseTime: TimerUtil.getTimeByOption(option, state),
       time: TimerUtil.getTimeByOption(option, state),

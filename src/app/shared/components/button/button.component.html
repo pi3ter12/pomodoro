@@ -1,16 +1,19 @@
 <button
   class="button"
   (click)="handleClick()"
+  [disabled]="disabled"
   [ngClass]="{
     'is-selected': isSelected,
     'is-not-selected': !isSelected,
     'theme-option': buttonType === 'option',
+    'theme-normal': buttonType === 'normal',
     'theme-round': buttonType === 'round',
     'theme-control': buttonType === 'control',
     'theme-nav': buttonType === 'nav',
-    'work': (currentOption | async) === 'work',
-    'longBreak': (currentOption | async) === 'longBreak',
-    'shortBreak': (currentOption | async) === 'shortBreak'
+    'work': (theme | async) === 'work',
+    'longBreak': (theme | async) === 'longBreak',
+    'shortBreak': (theme | async) === 'shortBreak',
+    'settings': (theme | async) === 'settings'
   }">
   {{text | translate}}
 </button>

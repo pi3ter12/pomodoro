@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {selectCurrentOption} from "../../store/timer/timer.selectors";
+import {selectTheme} from "../../store/timer/timer.selectors";
 import {Store} from "@ngrx/store";
 import {ReplaySubject, takeUntil, tap} from "rxjs";
-import {CurrentOption} from "../../store/timer/timer.model";
+import {Theme} from "../../store/timer/timer.model";
 
 @Component({
   selector: 'app-nav',
@@ -10,15 +10,15 @@ import {CurrentOption} from "../../store/timer/timer.model";
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy {
-  selectedOption: CurrentOption = 'work'
+  currentTheme: Theme = 'work'
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private store: Store) {
   }
 
   ngOnInit() {
-    this.store.select(selectCurrentOption).pipe(
-      tap(option => this.selectedOption = option),
+    this.store.select(selectTheme).pipe(
+      tap(theme => this.currentTheme = theme),
       takeUntil(this.destroyed$)
     ).subscribe()
   }

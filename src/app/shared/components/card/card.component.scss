@@ -1,0 +1,14 @@
+@import "../../styles/colors";
+@import "../../styles/fonts";
+@import "../../styles/variable";
+
+.card-container {
+  max-height: 600px;
+  min-height: 300px;
+  @include default-font;
+  background-color: $backgroundElementMask;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: $borderRadius;
+}

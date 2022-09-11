@@ -1,33 +1,36 @@
+@import "../../../shared/styles/colors";
+
 .bell-container {
   & > img {
     width: 1.5rem;
-    filter: invert(95%) sepia(100%) saturate(20%) hue-rotate(1deg) brightness(105%) contrast(106%);
-    animation:spin .2s linear infinite;
+    filter: $whiteIconFilter;
+    animation: spin .2s linear infinite;
 
   }
 }
+
 $bellRotate: 15deg;
 @keyframes spin {
   0% {
     -webkit-transform: rotate($bellRotate);
-    transform:rotate($bellRotate);
+    transform: rotate($bellRotate);
   }
 
   25% {
     -webkit-transform: rotate(0deg);
-    transform:rotate(0deg);
+    transform: rotate(0deg);
   }
 
   50% {
     -webkit-transform: rotate(-$bellRotate);
-    transform:rotate(-$bellRotate);
+    transform: rotate(-$bellRotate);
   }
   75% {
     -webkit-transform: rotate(0deg);
-    transform:rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate($bellRotate);
-    transform:rotate($bellRotate);
+    transform: rotate($bellRotate);
   }
 }

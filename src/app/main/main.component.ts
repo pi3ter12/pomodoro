@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ReplaySubject, takeUntil, tap} from "rxjs";
 import {Store} from "@ngrx/store";
-import {selectCurrentOption} from "../store/timer/timer.selectors";
-import {CurrentOption} from "../store/timer/timer.model";
+import {selectSettingModalOpen, selectTheme} from "../store/timer/timer.selectors";
+import {Theme} from "../store/timer/timer.model";
 import {StateBackupService} from "../shared/service/state-backup.service";
 
 @Component({
@@ -11,16 +11,17 @@ import {StateBackupService} from "../shared/service/state-backup.service";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  selectedOption: CurrentOption = 'work'
+  currentTheme: Theme = 'work'
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+  isSettingModalOpen = this.store.select(selectSettingModalOpen);
 
   constructor(private store: Store,
               private stateBackupService: StateBackupService) {
   }
 
   ngOnInit() {
-    this.store.select(selectCurrentOption).pipe(
-      tap(option => this.selectedOption = option),
+    this.store.select(selectTheme).pipe(
+      tap(theme => this.currentTheme = theme),
       takeUntil(this.destroyed$)
     ).subscribe()
   }

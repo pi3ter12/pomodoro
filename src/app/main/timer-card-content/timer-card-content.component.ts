@@ -55,9 +55,9 @@ export class TimerCardContentComponent implements OnInit, OnDestroy {
 
   private playAlarm(): void {
     if (this.alarm) {
-      const id = this.alarm.play();
+      // const id = this.alarm.play();
       setTimeout(() => {
-        this.alarm?.stop(id)
+        // this.alarm?.stop(id)
         this.store.dispatch(changeAlarmState({isOn: false}))
       }, environment.alarmTime * 1000)
     }

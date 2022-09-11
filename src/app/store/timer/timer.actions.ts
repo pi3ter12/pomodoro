@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {CurrentOption, Step, TimerState} from "./timer.model";
+import {CurrentOption, SettingsConf, Step, TimerState} from "./timer.model";
 
 export const start = createAction(
   '[Timer] Start'
@@ -45,8 +45,12 @@ export const changeAlarmState = createAction(
 )
 
 export const loadState = createAction(
-  '[Timer] LoadState',
+  '[Timer] Load State',
   props<{ newState: TimerState }>()
+)
+export const saveSettings = createAction(
+  '[Timer] Save Settings',
+  props<{ newState: SettingsConf }>()
 )
 
 export const openSettings = createAction(

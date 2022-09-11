@@ -16,6 +16,7 @@
       </ng-container>
       <div class="settings-content-buttons">
         <app-button
+          (isClicked)="handleSaveButton()"
           [buttonType]="'normal'"
           [text]="'settings.save'"
           class="save-button">

@@ -4,7 +4,7 @@ import {TimerState} from './timer.model';
 import {
   changeAlarmState, closeSettings,
   decreaseTime,
-  loadState, openSettings,
+  loadState, openSettings, saveSettings,
   setCurrentStep,
   setSelectedOption,
   setStep,
@@ -34,13 +34,29 @@ export const initialState: Readonly<TimerState> = {
 };
 
 export const timerReducer = createReducer(
-  initialState,
+  {...initialState},
   on(setCurrentStep, (state, {currentStep}) => ({...state, currentStep: currentStep})),
   on(start, (state) => ({...state, working: true, timerStartTime: new Date()})),
   on(stop, (state) => ({...state, working: false, timerStartTime: undefined, baseTime: state.time})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
   on(openSettings, (state) => ({...state, openSettings: true, theme: 'settings'})),
   on(closeSettings, (state) => ({...state, openSettings: false, theme: state.currentOption})),
+  on(saveSettings, (state, {newState}) => ({
+    ...state,
+    conf: {
+      work: newState.conf.work,
+      shortBreak: newState.conf.shortBreak,
+      longBreak: newState.conf.longBreak
+    },
+    time: newState.conf.work,
+    working: false,
+    timerStartTime: undefined,
+    currentStep: 0,
+    rounds: newState.rounds,
+    openSettings: false,
+    steps: TimerUtil.generateSteps(newState.rounds),
+    baseTime: newState.conf.work,
+  })),
   on(decreaseTime, (state) => {
     const now = new Date();
     let diff, newTime;

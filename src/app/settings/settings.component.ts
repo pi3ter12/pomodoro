@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ReplaySubject, takeUntil, tap} from "rxjs";
 import {selectSettingConf, selectSettingModalOpen} from "../store/timer/timer.selectors";
-import {closeSettings} from "../store/timer/timer.actions";
+import {closeSettings, saveSettings, stop} from "../store/timer/timer.actions";
 import {SettingsConf} from "../store/timer/timer.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -55,7 +55,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     {key: 'rounds', getValue: () => this.settingsConf?.rounds || 0},
   ]
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {
+  }
 
   handleCloseButton(): void {
     this.store.dispatch(closeSettings());
@@ -67,18 +68,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       tap(conf => this.settingsConf = conf),
       tap(() => this.updateForm())
     ).subscribe();
-
-    this.formGroup.valueChanges.pipe(
-      takeUntil(this.destroyed$),
-      tap(currValue => this.updateState({
-        conf: {
-          work: currValue.workTime,
-          shortBreak: currValue.breakTime,
-          longBreak: currValue.longBreakTime
-        },
-        rounds: currValue.rounds
-      }))
-    ).subscribe()
   }
 
   ngOnDestroy() {
@@ -86,13 +75,23 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  public updateState(currentValue: SettingsConf): void {
-    console.log('this', currentValue)
+  handleSaveButton(): void {
     if (this.formGroup.valid) {
-      // todo: update state
+      this.updateState({
+        conf: {
+          work: this.formGroup.get('workTime')?.value,
+          shortBreak: this.formGroup.get('breakTime')?.value,
+          longBreak: this.formGroup.get('longBreakTime')?.value
+        },
+        rounds: this.formGroup.get('rounds')?.value
+      });
     } else {
       console.log('form is not valid');
     }
+  }
+
+  public updateState(currentValue: SettingsConf): void {
+    this.store.dispatch(saveSettings({newState: currentValue}));
   }
 
   private updateForm(): void {

@@ -9,7 +9,7 @@ export interface TimerState {
   time: number;
   timerStartTime: Date | undefined,
   working: boolean;
-  rounds: number
+  rounds: number;
   currentStep: number;
   steps: Step[];
   playAlarm: boolean;
@@ -36,4 +36,14 @@ export interface ControlPanelConf {
 export interface FooterConf {
   currentStep: number;
   currentOption: CurrentOption;
+}
+
+export interface SettingsConf {
+  conf: {
+    work: number;
+    longBreak: number;
+    shortBreak: number;
+  },
+  rounds: number;
+  //todo: alarm time
 }

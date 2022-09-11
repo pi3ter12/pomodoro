@@ -5,19 +5,25 @@ import {SharedModule} from "../shared/shared.module";
 import {CardModule} from "../shared/components/card/card.module";
 import {InputModule} from "../shared/components/input/input.module";
 import {ButtonModule} from "../shared/components/button/button.module";
+import {ObjectKeysPipe} from "./pipe/object-keys.pipe";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ToFormControlPipe} from "./pipe/to-form-control.pipe";
 
 
 
 @NgModule({
   declarations: [
-    SettingsComponent
+    SettingsComponent,
+    ObjectKeysPipe,
+    ToFormControlPipe
   ],
   imports: [
     CommonModule,
     SharedModule,
     CardModule,
     InputModule,
-    ButtonModule
+    ButtonModule,
+    ReactiveFormsModule
   ],
   exports: [
     SettingsComponent

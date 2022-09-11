@@ -1,8 +1,8 @@
-<div class="input-container">
+<div class="input-container" *ngIf="control != null">
   <div class="label">
     {{label | translate}}
   </div>
   <div class="input">
-    <input type="number"/>
+    <input type="number" [formControl]="control"/>
   </div>
 </div>

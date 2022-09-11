@@ -10,8 +10,8 @@ import {StoreModule} from '@ngrx/store';
 import {timerReducer} from "./store/timer/timer.reducer";
 import {EffectsModule} from "@ngrx/effects";
 import {TimerEffects} from "./store/timer/timer.effects";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http,

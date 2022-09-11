@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-input',
@@ -9,6 +10,7 @@ import {Store} from "@ngrx/store";
 export class InputComponent implements OnInit {
   @Input() type: InputType = 'number';
   @Input() label: string = 'label';
+  @Input() control: FormControl | null = null;
 
   constructor(private store: Store) {
   }

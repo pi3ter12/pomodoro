@@ -39,7 +39,7 @@ export const timerReducer = createReducer(
   on(start, (state) => ({...state, working: true, timerStartTime: new Date()})),
   on(stop, (state) => ({...state, working: false, timerStartTime: undefined, baseTime: state.time})),
   on(setStep, (state, {step}) => step != null ? ({...state, currentStep: step.index}) : state),
-  on(openSettings, (state) => ({...state, openSettings: true, theme: 'settings'})),
+  on(openSettings, (state) => ({...state, openSettings: true, theme: 'settings', working: false})),
   on(closeSettings, (state) => ({...state, openSettings: false, theme: state.currentOption})),
   on(saveSettings, (state, {newState}) => ({
     ...state,
@@ -52,6 +52,8 @@ export const timerReducer = createReducer(
     working: false,
     timerStartTime: undefined,
     currentStep: 0,
+    currentOption: 'work',
+    theme: 'work',
     rounds: newState.rounds,
     openSettings: false,
     steps: TimerUtil.generateSteps(newState.rounds),
@@ -81,7 +83,8 @@ export const timerReducer = createReducer(
     ...newState,
     baseTime: newState.time,
     lastTimeCheck: undefined,
-    working: false
+    working: false,
+    openSettings: false
   })),
   on(setSelectedOption, (state, {option, manuallyChanged}) => {
     let newCurrentStep = state.currentStep;

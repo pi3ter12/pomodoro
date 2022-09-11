@@ -6,6 +6,6 @@ export const environmentCommon = {
     rounds: 4,
   },
   alarmTime: 5,
-  saveInLocalStorage: false,
+  saveInLocalStorage: true,
   timeCheckInterval: 250
 }

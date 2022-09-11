@@ -10,6 +10,8 @@ $shortBreakBackground: rgb(60, 101, 150);
 $longBreakBackground: #4d6c63;
 $settingsTheme: #70650a;
 
+$invalidInputBorder: #ff000052;
+
 $whiteIconFilter: invert(95%) sepia(100%) saturate(20%) hue-rotate(1deg) brightness(105%) contrast(106%);
 
 @mixin theme {

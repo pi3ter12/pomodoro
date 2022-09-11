@@ -2,7 +2,7 @@
   <div class="label">
     {{label | translate}}
   </div>
-  <div class="input">
+  <div class="input" [ngClass]="{'invalid' : !control.valid}">
     <input type="number" [formControl]="control"/>
   </div>
 </div>

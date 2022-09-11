@@ -47,5 +47,11 @@
         -moz-appearance: textfield;
       }
     }
+
+    &.invalid > input {
+      border: 2px solid $invalidInputBorder;
+      height: calc(2rem - 4px);
+      line-height: calc(2rem - 4px);
+    }
   }
 }

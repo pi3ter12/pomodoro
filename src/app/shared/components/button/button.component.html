@@ -1,6 +1,7 @@
 <button
   class="button"
   (click)="handleClick()"
+  [disabled]="disabled"
   [ngClass]="{
     'is-selected': isSelected,
     'is-not-selected': !isSelected,

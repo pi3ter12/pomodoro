@@ -18,6 +18,7 @@
         <app-button
           (isClicked)="handleSaveButton()"
           [buttonType]="'normal'"
+          [disabled]="!formGroup.valid"
           [text]="'settings.save'"
           class="save-button">
         </app-button>

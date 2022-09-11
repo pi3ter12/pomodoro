@@ -10,6 +10,7 @@ import {selectCurrentOption, selectTheme} from "../../../store/timer/timer.selec
 export class ButtonComponent {
   @Input() text: string = '';
   @Input() isSelected: boolean = false;
+  @Input() disabled: boolean = false;
 
   @Input() buttonType: ButtonType = 'option';
 

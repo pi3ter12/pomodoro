@@ -10,4 +10,4 @@ FROM nginx:latest
 
 COPY --from=build /usr/local/app/dist/pomodoro /usr/share/nginx/html
 
-EXPOSE 9001
+EXPOSE 80

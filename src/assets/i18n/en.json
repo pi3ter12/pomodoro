@@ -15,9 +15,9 @@
       "selectRound": "Select round"
     },
     "footer": {
-      "work": "It's a time for work!!",
-      "shortBreak": "Time for a break!",
-      "longBreak": "It's a time for long break. :) Go to the lunch!!!"
+      "work": "work",
+      "shortBreak": "break",
+      "longBreak": "long break (e.g. lunch time :) )"
     }
   },
   "settings": {

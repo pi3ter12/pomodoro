@@ -7,7 +7,8 @@
     "startWithExtHost": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "proxy": "ssh -L 0.0.0.0:4200:localhost:4200 ubuntu@host.docker.internal"
   },
   "private": true,
   "dependencies": {
